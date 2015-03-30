@@ -19,9 +19,10 @@ import java.util.logging.Logger;
  */
 public class Controller {
     
-    public void copy (File open, File save) {
+    public void copy (File open, File save, float probability) {
         FileInputStream in = null;
         FileOutputStream out = null;
+        
         try {
             try {
                 in = new FileInputStream(open);
@@ -40,7 +41,7 @@ public class Controller {
             
             try { // Noise adding 
                 while ((c = in.read()) != -1) {
-                    if ( ( Math.random()) > 0.9 ) {
+                    if ( ( Math.random()) > probability ) {
                         out.write(c ^ 8);
                         System.out.println("mask!" + maskCounter  );
                         maskCounter ++;
@@ -70,4 +71,7 @@ public class Controller {
             }           
         }
     }
+    
+    
+    
 }

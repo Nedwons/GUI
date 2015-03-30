@@ -15,9 +15,6 @@ import javax.swing.*;
  */
 public class View extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FileChooser
-     */
     public View() {
         initComponents();
     }
@@ -36,6 +33,7 @@ public class View extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         SaveButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
+        MistakeProbability = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +58,13 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        MistakeProbability.setText("0.1");
+        MistakeProbability.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MistakeProbabilityActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,58 +72,67 @@ public class View extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(OpenButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(MistakeProbability)
+                    .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(77, 77, 77)
                 .addComponent(SaveButton)
-                .addGap(118, 118, 118))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(232, 232, 232)
-                .addComponent(startButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 210, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 210, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(276, Short.MAX_VALUE)
-                .addComponent(startButton)
-                .addGap(44, 44, 44)
+                .addContainerGap(148, Short.MAX_VALUE)
+                .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenButton)
-                    .addComponent(SaveButton))
+                    .addComponent(SaveButton)
+                    .addComponent(startButton))
                 .addGap(39, 39, 39))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 135, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 136, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    Controller controller = new Controller();
     private File openPath, savePath; // contain path to the files
+    private float mistakeProbability;
     
-    private void openPathSetter (File openPath) {  
+    // File Getters and Setters
+    private void setOpenPath (File openPath) {  
         this.openPath = openPath;
     }
-    
-    private void savePathSetter (File savePath) {
+    private void setSavePath (File savePath) {
         this.savePath = savePath;
     }
-    
-    public File openPathGetter () {  
+    public File getOpenPath () {  
         return this.openPath;
     }
-    
-    public File savePathGetter () {  
+    public File getSavePath () {  
         return this.savePath;
     }
     
-    Controller controller = new Controller(); //create instance of the Controller
+    // Getter и Setter добавления ошибок
+    public void setProbability (float prbability) {
+        this.mistakeProbability = (1 - prbability); 
+    }
+    public float getProbability () {
+        System.out.format("Вероятность = %f\n", mistakeProbability);
+        return mistakeProbability;
+    }
+      
     
     private void OpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonActionPerformed
                                                                                     //event holding
@@ -126,35 +140,40 @@ public class View extends javax.swing.JFrame {
          * пути. return APPROVE_OPTION if the user approved the operation and
          * CANCEL_OPTION if the user cancelled it **/
         if (o == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
-            openPathSetter( fc.getSelectedFile() ); /** returns selected file
-             *                                      and set to openPath varable;
-             */
-            //System.out.println(f);
-            //jLabel1.setIcon(new ImageIcon("" + f));
+            setOpenPath( fc.getSelectedFile() ); /** returns selected file
+                                                 and set to openPath varable;                                                 and set to openPath varable;
+*/
         }
     }//GEN-LAST:event_OpenButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
          int s = fc.showSaveDialog(this);
          if (s == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
-            savePathSetter( fc.getSelectedFile() ); /** returns selected file
+            setSavePath( fc.getSelectedFile() ); /** returns selected file
              *                                         and store to savePath var
              */
-            //System.out.println(f);
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
        
-        controller.copy(openPathGetter(), savePathGetter());
+        controller.copy(getOpenPath(), getSavePath(), getProbability());
     
     }//GEN-LAST:event_startButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    // Ввод вероятности ошибки
+    private void MistakeProbabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MistakeProbabilityActionPerformed
+        
+        String stringInput = MistakeProbability.getText(); // 
+        float numberInput = Float.valueOf(stringInput); // converts srting to number
+        setProbability(numberInput);
+   
+    }//GEN-LAST:event_MistakeProbabilityActionPerformed
+
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField MistakeProbability;
     private javax.swing.JButton OpenButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JFileChooser fc;
