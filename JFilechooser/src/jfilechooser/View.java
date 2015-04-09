@@ -13,7 +13,7 @@ import javax.swing.*;
  *
  * @author Вадим
  */
-public class View extends javax.swing.JFrame {
+public class View extends javax.swing.JFrame { //
 
     public View() {
         initComponents();
@@ -34,6 +34,12 @@ public class View extends javax.swing.JFrame {
         SaveButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
         MistakeProbability = new javax.swing.JTextField();
+        fileSizeText = new javax.swing.JLabel();
+        fileSizeLabel = new javax.swing.JLabel();
+        MistakeProbabilityText = new javax.swing.JLabel();
+        MistakeQuantityText = new javax.swing.JLabel();
+        MistakeQuantityLabel = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,20 +71,54 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        fileSizeText.setText("Размер файла");
+
+        fileSizeLabel.setText("(байт)");
+
+        MistakeProbabilityText.setText("Ошибка канала, %");
+
+        MistakeQuantityText.setText("Количество ошибочных блоков");
+
+        MistakeQuantityLabel.setText("0");
+
+        progressBar.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(OpenButton)
-                .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MistakeProbability)
-                    .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(77, 77, 77)
-                .addComponent(SaveButton)
-                .addGap(55, 55, 55))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fileSizeText)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(MistakeProbabilityText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(MistakeQuantityText)
+                        .addGap(42, 42, 42))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fileSizeLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(OpenButton)
+                                .addGap(70, 70, 70)
+                                .addComponent(startButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SaveButton)
+                        .addGap(55, 55, 55))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MistakeQuantityLabel)
+                        .addGap(125, 125, 125))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 210, Short.MAX_VALUE)
@@ -88,9 +128,21 @@ public class View extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MistakeProbabilityText)
+                    .addComponent(MistakeQuantityText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MistakeQuantityLabel)
+                    .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenButton)
                     .addComponent(SaveButton)
@@ -104,11 +156,15 @@ public class View extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    Controller controller = new Controller();
+    Controller controller = new Controller( this ); /**передаем ссылку на объект
+     * класса Controller классу View */
+    
     private File openPath, savePath; // contain path to the files
-    private float mistakeProbability;
+    private float mistakeProbability; // вероятность ошибки
+    private long fileSize; // Размер файла
     
     // File Getters and Setters
     private void setOpenPath (File openPath) {  
@@ -129,23 +185,54 @@ public class View extends javax.swing.JFrame {
         this.mistakeProbability = (1 - prbability); 
     }
     public float getProbability () {
-        System.out.format("Вероятность = %f\n", mistakeProbability);
         return mistakeProbability;
     }
-      
     
+    // Getter и Setter размера файла
+    public void setFileSize (long size) {
+        this.fileSize = size; 
+    }
+    public int getFileSize() {
+        return ( (int) fileSize);
+    }
+    
+    // устанавливает количество ошибок
+    public void setQuantityLabel(int quantity) {
+        this.MistakeQuantityLabel.setText( String.valueOf(quantity) );
+        //this.progressBar.setValue(quantity); //темп
+    }
+    
+    // Метод возвращает процент считанного файла    
+    public int getPercent() {
+        int number = controller.totalRead; //  количество считанных блоков
+        int fileSize = this.getFileSize();
+        System.out.println("количество = "+ number );
+        int result = (int) (100 * number ) / fileSize; // вычисление процента
+        //System.out.format("The value of temp is: %1.5f \n", result);
+        return result;
+    }
+    
+    public void setProgress() {
+        this.progressBar.setValue( getPercent() );
+    }
+    
+//    Обработка события по нажатию кнопки Open
     private void OpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonActionPerformed
-                                                                                    //event holding
+                                                                                    
         int o = fc.showOpenDialog(this); /** Открывает окно выбора
          * пути. return APPROVE_OPTION if the user approved the operation and
          * CANCEL_OPTION if the user cancelled it **/
         if (o == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
             setOpenPath( fc.getSelectedFile() ); /** returns selected file
                                                  and set to openPath varable;                                                 and set to openPath varable;
-*/
+*/             
+            long size = getOpenPath().length(); //определяем размер файла
+            setFileSize( size ); 
+            fileSizeLabel.setText(String.valueOf(size)); // выводим размер файла
         }
     }//GEN-LAST:event_OpenButtonActionPerformed
 
+//    Обработка события по нажатию кнопки Save
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
          int s = fc.showSaveDialog(this);
          if (s == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
@@ -155,16 +242,15 @@ public class View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
+    // запуск копирования
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-       
         controller.copy(getOpenPath(), getSavePath(), getProbability());
-    
     }//GEN-LAST:event_startButtonActionPerformed
 
     // Ввод вероятности ошибки
     private void MistakeProbabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MistakeProbabilityActionPerformed
         
-        String stringInput = MistakeProbability.getText(); // 
+        String stringInput = MistakeProbability.getText(); // забираем значение вероятности 
         float numberInput = Float.valueOf(stringInput); // converts srting to number
         setProbability(numberInput);
    
@@ -174,10 +260,16 @@ public class View extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField MistakeProbability;
+    private javax.swing.JLabel MistakeProbabilityText;
+    private javax.swing.JLabel MistakeQuantityLabel;
+    private javax.swing.JLabel MistakeQuantityText;
     private javax.swing.JButton OpenButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JFileChooser fc;
+    private javax.swing.JLabel fileSizeLabel;
+    private javax.swing.JLabel fileSizeText;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 

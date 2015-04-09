@@ -10,7 +10,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -29,15 +29,44 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="OpenButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="MistakeProbability" max="32767" attributes="0"/>
-                  <Component id="startButton" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="fileSizeText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="MistakeProbabilityText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="52" max="32767" attributes="0"/>
+                      <Component id="MistakeQuantityText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="fileSizeLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="OpenButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="startButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="SaveButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="MistakeProbability" min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="MistakeQuantityLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
-              <Component id="SaveButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
+              <Component id="progressBar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
@@ -51,9 +80,23 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="148" max="32767" attributes="0"/>
-              <Component id="MistakeProbability" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="MistakeProbabilityText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="MistakeQuantityText" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="MistakeQuantityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="MistakeProbability" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="fileSizeText" min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="fileSizeLabel" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
+              <Component id="progressBar" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="OpenButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="SaveButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -105,6 +148,36 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MistakeProbabilityActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fileSizeText">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x43c;&#x435;&#x440; &#x444;&#x430;&#x439;&#x43b;&#x430;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fileSizeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="(&#x431;&#x430;&#x439;&#x442;)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="MistakeProbabilityText">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41e;&#x448;&#x438;&#x431;&#x43a;&#x430; &#x43a;&#x430;&#x43d;&#x430;&#x43b;&#x430;, %"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="MistakeQuantityText">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x447;&#x43d;&#x44b;&#x445; &#x431;&#x43b;&#x43e;&#x43a;&#x43e;&#x432;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="MistakeQuantityLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JProgressBar" name="progressBar">
+      <Properties>
+        <Property name="stringPainted" type="boolean" value="true"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

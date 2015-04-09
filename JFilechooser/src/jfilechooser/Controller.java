@@ -19,10 +19,18 @@ import java.util.logging.Logger;
  */
 public class Controller {
     
+    private View view;
+    public static int maskCounter = 0;
+    public static int totalRead = 0;
+    
+    public Controller(View viewInstance) {
+        this.view = viewInstance;
+    } 
+    
     public void copy (File open, File save, float probability) {
         FileInputStream in = null;
         FileOutputStream out = null;
-        
+        //System.out.println("До вызова потока");
         try {
             try {
                 in = new FileInputStream(open);
@@ -36,24 +44,32 @@ public class Controller {
                 System.out.println("Сохраняемый файл не найден");
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }
-            int c;
-            int maskCounter = 0;
+            int c; 
             
             try { // Noise adding 
                 while ((c = in.read()) != -1) {
+                    totalRead++;
                     if ( ( Math.random()) > probability ) {
                         out.write(c ^ 8);
                         System.out.println("mask!" + maskCounter  );
-                        maskCounter ++;
+                        maskCounter++;
                     } else {       
                         out.write(c);
                     }
+                    //view.setQuantityLabel(totalRead);
+            
+                    view.setQuantityLabel( maskCounter );  
+                    view.setProgress();
                 }
             } catch (IOException ex) {
                 System.out.println("Ошибка в наложении маски");
                 Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
             }
         } finally {    
+            
+            maskCounter = 0;
+            totalRead = 0; // обнуление счетчиков
+            
             System.out.println("Все прошло успешно");    
             if (in != null) {
                 try {
