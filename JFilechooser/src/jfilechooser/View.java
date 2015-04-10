@@ -203,17 +203,15 @@ public class View extends javax.swing.JFrame { //
     }
     
     // Метод возвращает процент считанного файла    
-    public int getPercent() {
-        int number = controller.totalRead; //  количество считанных блоков
+    public int getPercent(int number) { // number - количество считанных блоков  
         int fileSize = this.getFileSize();
-        System.out.println("количество = "+ number );
         int result = (int) (100 * number ) / fileSize; // вычисление процента
         //System.out.format("The value of temp is: %1.5f \n", result);
         return result;
     }
     
-    public void setProgress() {
-        this.progressBar.setValue( getPercent() );
+    public void setProgress(int number) {
+        this.progressBar.setValue( getPercent( number ) );
     }
     
 //    Обработка события по нажатию кнопки Open
