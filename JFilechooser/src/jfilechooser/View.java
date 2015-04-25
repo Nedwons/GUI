@@ -6,7 +6,10 @@
 package jfilechooser;
 
 import java.io.File;
+import static java.lang.Math.sqrt;
 import javax.swing.*;
+import static org.apache.commons.math3.special.Erf.erf;
+import static org.apache.commons.math3.special.Erf.erfc;
 
 
 /**
@@ -33,13 +36,19 @@ public class View extends javax.swing.JFrame { //
         jLabel1 = new javax.swing.JLabel();
         SaveButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
-        MistakeProbability = new javax.swing.JTextField();
         fileSizeText = new javax.swing.JLabel();
         fileSizeLabel = new javax.swing.JLabel();
-        MistakeProbabilityText = new javax.swing.JLabel();
         MistakeQuantityText = new javax.swing.JLabel();
         MistakeQuantityLabel = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
+        jLabel2 = new javax.swing.JLabel();
+        usefulVoltage = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        noiseVoltage = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        speed = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        frequency = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,18 +73,9 @@ public class View extends javax.swing.JFrame { //
             }
         });
 
-        MistakeProbability.setText("0.1");
-        MistakeProbability.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MistakeProbabilityActionPerformed(evt);
-            }
-        });
-
         fileSizeText.setText("Размер файла");
 
         fileSizeLabel.setText("(байт)");
-
-        MistakeProbabilityText.setText("Ошибка канала, %");
 
         MistakeQuantityText.setText("Количество ошибочных блоков");
 
@@ -83,76 +83,142 @@ public class View extends javax.swing.JFrame { //
 
         progressBar.setStringPainted(true);
 
+        jLabel2.setText("U полезного сигнала, В");
+
+        usefulVoltage.setText("7.35");
+        usefulVoltage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usefulVoltageActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("U шума, В");
+
+        noiseVoltage.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.6f), Float.valueOf(0.0f), Float.valueOf(6.0f), Float.valueOf(0.1f)));
+        noiseVoltage.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                noiseVoltageStateChanged(evt);
+            }
+        });
+
+        jLabel4.setText("Скорость передачи, Бод");
+
+        speed.setText("50");
+        speed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                speedActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Тактовая частота, кГц");
+
+        frequency.setText("50");
+        frequency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                frequencyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fileSizeText)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(MistakeProbabilityText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(MistakeQuantityText)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(42, 42, 42))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fileSizeLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(OpenButton)
-                                .addGap(70, 70, 70)
-                                .addComponent(startButton)))
+                                .addGap(21, 21, 21)
+                                .addComponent(fileSizeLabel))
+                            .addComponent(fileSizeText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(usefulVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(noiseVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addGap(94, 94, 94)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(113, 113, 113))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(MistakeQuantityText)
+                                .addGap(22, 22, 22))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(OpenButton)
+                        .addGap(123, 123, 123)
+                        .addComponent(startButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SaveButton)
-                        .addGap(55, 55, 55))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MistakeQuantityLabel)
-                        .addGap(125, 125, 125))))
+                        .addGap(98, 98, 98))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addComponent(frequency, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(246, 246, 246)
+                        .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 210, Short.MAX_VALUE)
+                    .addGap(0, 319, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 210, Short.MAX_VALUE)))
+                    .addGap(0, 319, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MistakeProbabilityText)
-                    .addComponent(MistakeQuantityText))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MistakeQuantityText)
+                            .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MistakeQuantityLabel)
+                            .addComponent(fileSizeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(usefulVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(noiseVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MistakeQuantityLabel)
-                    .addComponent(MistakeProbability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(frequency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(OpenButton)
                     .addComponent(SaveButton)
                     .addComponent(startButton))
-                .addGap(39, 39, 39))
+                .addGap(50, 50, 50))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 135, Short.MAX_VALUE)
+                    .addGap(0, 197, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 136, Short.MAX_VALUE)))
+                    .addGap(0, 198, Short.MAX_VALUE)))
         );
 
         pack();
@@ -165,8 +231,12 @@ public class View extends javax.swing.JFrame { //
     private File openPath, savePath; // contain path to the files
     private float mistakeProbability; // вероятность ошибки
     private long fileSize; // Размер файла
+    private float usefulVoltageValue; // Напряжение полезного сигнала
+    private float noiseVoltageValue; // Напряжение шума
+    private int speedValue; // Скорость передачи
+    private int frequencyValue; // Частота шумогенератора
     
-    // File Getters and Setters
+    // File  Getters and Setters
     private void setOpenPath (File openPath) {  
         this.openPath = openPath;
     }
@@ -204,19 +274,52 @@ public class View extends javax.swing.JFrame { //
     
     // Метод возвращает процент считанного файла    
     public int getPercent(int number) { // number - количество считанных блоков  
-        int fileSize = this.getFileSize();
-        int result = (int) (100 * number ) / fileSize; // вычисление процента
-        //System.out.format("The value of temp is: %1.5f \n", result);
+        int tempFileSize = this.getFileSize(); // размер файла
+        int result = (int) (100 * number ) / tempFileSize; // вычисление процента
         return result;
     }
     
+    // устанавливает значение progressBar
     public void setProgress(int number) {
         this.progressBar.setValue( getPercent( number ) );
     }
     
+    // устанавливает значение напряжения полезного сигнала
+    public void setUsefulVoltge(float numberInput) {
+        usefulVoltageValue = numberInput; 
+    }
+    
+    public float getUsefulVoltage() {
+        return usefulVoltageValue; 
+    }
+    
+    public void setNoiseVoltage(float value) {
+        noiseVoltageValue = value;
+    }
+    
+    public float getNoiseVoltage() {
+        return noiseVoltageValue;
+    }
+    
+    public void setSpeed(int value) {
+        speedValue = value;
+    }
+    
+    public int getSpeed() {
+        return speedValue;
+    }
+    
+    private void setFrequency(int numberInput) {
+        frequencyValue = numberInput;
+    }
+    
+    private int getFrequency() {
+        return frequencyValue;
+    }
+    
 //    Обработка события по нажатию кнопки Open
     private void OpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonActionPerformed
-                                                                                    
+        System.out.println("0,7 = "+( erf(0.7/sqrt(2)) ));                                                                            
         int o = fc.showOpenDialog(this); /** Открывает окно выбора
          * пути. return APPROVE_OPTION if the user approved the operation and
          * CANCEL_OPTION if the user cancelled it **/
@@ -242,23 +345,48 @@ public class View extends javax.swing.JFrame { //
 
     // запуск копирования
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        calculate (); // вычисление вероятности ошибки
         controller.copy(getOpenPath(), getSavePath(), getProbability());
     }//GEN-LAST:event_startButtonActionPerformed
 
-    // Ввод вероятности ошибки
-    private void MistakeProbabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MistakeProbabilityActionPerformed
-        
-        String stringInput = MistakeProbability.getText(); // забираем значение вероятности 
+    private void usefulVoltageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usefulVoltageActionPerformed
+        String stringInput = usefulVoltage.getText(); // забираем значение вероятности
         float numberInput = Float.valueOf(stringInput); // converts srting to number
-        setProbability(numberInput);
-   
-    }//GEN-LAST:event_MistakeProbabilityActionPerformed
+        setUsefulVoltge(numberInput);
+    }//GEN-LAST:event_usefulVoltageActionPerformed
 
+    private void noiseVoltageStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_noiseVoltageStateChanged
+       setNoiseVoltage((float) noiseVoltage.getValue());
+    }//GEN-LAST:event_noiseVoltageStateChanged
+
+    private void speedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speedActionPerformed
+        String stringInput = speed.getText(); // забираем значение вероятности
+        int numberInput = Integer.parseInt( stringInput ); // converts srting to number
+        setSpeed( numberInput );
+    }//GEN-LAST:event_speedActionPerformed
+
+    private void frequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyActionPerformed
+        String stringInput = frequency.getText(); // забираем значение вероятности
+        int numberInput = Integer.parseInt( stringInput ); // converts srting to number
+        setFrequency( numberInput );
+    }//GEN-LAST:event_frequencyActionPerformed
+    
+    private void calculate () {
+        float uSignal = getUsefulVoltage(); // максимальное напряжение полезного сигнала, В
+        int b = getSpeed();                // скорость передачи, Бод
+        float c = getNoiseVoltage(); // эффективное напряжение шума, В
+        int f = getFrequency();          // тактовая частота генератора шума, кГц 
+        
+        float e = uSignal * uSignal / b; // энергия единичного сигнала
+        float deltaF = f /20; // полоса частот, воспроизводимая генератором шума
+        double n = uSignal * uSignal / deltaF;
+        
+        float probability = (float) erfc( sqrt( 2 * e / n ) );
+        setProbability(probability);
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField MistakeProbability;
-    private javax.swing.JLabel MistakeProbabilityText;
     private javax.swing.JLabel MistakeQuantityLabel;
     private javax.swing.JLabel MistakeQuantityText;
     private javax.swing.JButton OpenButton;
@@ -266,9 +394,17 @@ public class View extends javax.swing.JFrame { //
     private javax.swing.JFileChooser fc;
     private javax.swing.JLabel fileSizeLabel;
     private javax.swing.JLabel fileSizeText;
+    private javax.swing.JTextField frequency;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JSpinner noiseVoltage;
     private javax.swing.JProgressBar progressBar;
+    private javax.swing.JTextField speed;
     private javax.swing.JButton startButton;
+    private javax.swing.JTextField usefulVoltage;
     // End of variables declaration//GEN-END:variables
 
 }

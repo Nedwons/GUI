@@ -21,21 +21,20 @@ import javax.swing.SwingWorker;
  */
 public class Controller {
     
-    private View view;
+    private final View view;
     
     public Controller(View viewInstance) {
         this.view = viewInstance;
     } 
     
     /**
-     *
+     *  Метод копирует файл с заданной вероятностью
      * @param open - путь к открываемому файлу
      * @param save - путь к сохраняемому файлу
      * @param probability - вероятность ошибки
      */
     public void copy (final File open, final File save, final float probability) {
         SwingWorker<Void, Integer[]> worker = new SwingWorker<Void, Integer[]>() {  // поток обновления progressBar
-           // a = new int[10]
             @Override
             protected Void doInBackground() throws Exception {
                 FileInputStream in = null;
@@ -62,24 +61,20 @@ public class Controller {
                         mistakeAndProgress[0] = 0;
   
                         while ((c = in.read()) != -1) {  
-                            System.out.println("В цикле 1");
                             mistakeAndProgress[1]++;
-                            System.out.println("В цикле 2");
                             if ((Math.random()) > probability) {
                                 out.write(c ^ 8);
                                 mistakeAndProgress[0]++;
                             } else {
                                 out.write(c);
                             }                           
-                            //System.out.println("Ошибка и прогресс" + mistakeAndProgress[0] + mistakeAndProgress[1]);
-                            publish (mistakeAndProgress);
+                            publish (mistakeAndProgress); 
                         }
                     } catch (IOException ex) {
                         System.out.println("Ошибка в наложении маски");
                         Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } finally {
-
                     System.out.println("Все прошло успешно");
                     if (in != null) {
                         try {
@@ -102,11 +97,12 @@ public class Controller {
             @Override
             // This will be called if you call publish() from doInBackground()
             // Can safely update the GUI here.
-            protected void process(List<Integer[]> chunks) { // динамический принимает выплевываемые значения
+            protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
+                                                               // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
                 //view.setQuantityLabel(maskCounter);
                 view.setProgress(value[1]);  // обновление прогрессбара
-                view.setQuantityLabel(value[0]); // label с количеством ошибок
+                view.setQuantityLabel(value[0]); //обновление label с количеством ошибок
             }
         };
         worker.execute();
