@@ -9,7 +9,6 @@ import java.io.File;
 import static java.lang.Math.sqrt;
 import javax.swing.*;
 import static org.apache.commons.math3.special.Erf.erf;
-import static org.apache.commons.math3.special.Erf.erfc;
 
 
 /**
@@ -148,12 +147,11 @@ public class View extends javax.swing.JFrame { //
                             .addComponent(jLabel5))
                         .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(113, 113, 113))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(MistakeQuantityText)
-                                .addGap(22, 22, 22))))
+                            .addComponent(MistakeQuantityText)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(OpenButton)
@@ -229,12 +227,12 @@ public class View extends javax.swing.JFrame { //
      * класса Controller классу View */
     
     private File openPath, savePath; // contain path to the files
-    private float mistakeProbability; // вероятность ошибки
+    private double mistakeProbability; // вероятность ошибки
     private long fileSize; // Размер файла
-    private float usefulVoltageValue; // Напряжение полезного сигнала
-    private float noiseVoltageValue; // Напряжение шума
-    private int speedValue; // Скорость передачи
-    private int frequencyValue; // Частота шумогенератора
+    private double usefulVoltageValue = 7.35; // Напряжение полезного сигнала
+    private double noiseVoltageValue = 0.6; // Напряжение шума
+    private int speedValue = 50; // Скорость передачи
+    private int frequencyValue = 50; // Частота шумогенератора
     
     // File  Getters and Setters
     private void setOpenPath (File openPath) {  
@@ -251,10 +249,10 @@ public class View extends javax.swing.JFrame { //
     }
     
     // Getter и Setter добавления ошибок
-    public void setProbability (float prbability) {
-        this.mistakeProbability = (1 - prbability); 
+    public void setProbability (double prbability) {
+        mistakeProbability = (1 - prbability); 
     }
-    public float getProbability () {
+    public double getProbability () {
         return mistakeProbability;
     }
     
@@ -268,8 +266,7 @@ public class View extends javax.swing.JFrame { //
     
     // устанавливает количество ошибок
     public void setQuantityLabel(int quantity) {
-        this.MistakeQuantityLabel.setText( String.valueOf(quantity) );
-        //this.progressBar.setValue(quantity); //темп
+        this.MistakeQuantityLabel.setText( String.valueOf(quantity) ); //
     }
     
     // Метод возвращает процент считанного файла    
@@ -289,7 +286,7 @@ public class View extends javax.swing.JFrame { //
         usefulVoltageValue = numberInput; 
     }
     
-    public float getUsefulVoltage() {
+    public double getUsefulVoltage() {
         return usefulVoltageValue; 
     }
     
@@ -297,7 +294,7 @@ public class View extends javax.swing.JFrame { //
         noiseVoltageValue = value;
     }
     
-    public float getNoiseVoltage() {
+    public double getNoiseVoltage() {
         return noiseVoltageValue;
     }
     
@@ -319,7 +316,7 @@ public class View extends javax.swing.JFrame { //
     
 //    Обработка события по нажатию кнопки Open
     private void OpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonActionPerformed
-        System.out.println("0,7 = "+( erf(0.7/sqrt(2)) ));                                                                            
+                                                                      
         int o = fc.showOpenDialog(this); /** Открывает окно выбора
          * пути. return APPROVE_OPTION if the user approved the operation and
          * CANCEL_OPTION if the user cancelled it **/
@@ -351,7 +348,7 @@ public class View extends javax.swing.JFrame { //
 
     private void usefulVoltageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usefulVoltageActionPerformed
         String stringInput = usefulVoltage.getText(); // забираем значение вероятности
-        float numberInput = Float.valueOf(stringInput); // converts srting to number
+        float numberInput = Float.valueOf(stringInput); // converts srting to number 
         setUsefulVoltge(numberInput);
     }//GEN-LAST:event_usefulVoltageActionPerformed
 
@@ -372,16 +369,21 @@ public class View extends javax.swing.JFrame { //
     }//GEN-LAST:event_frequencyActionPerformed
     
     private void calculate () {
-        float uSignal = getUsefulVoltage(); // максимальное напряжение полезного сигнала, В
+        double uSignal = getUsefulVoltage(); // максимальное напряжение полезного сигнала, В
         int b = getSpeed();                // скорость передачи, Бод
-        float c = getNoiseVoltage(); // эффективное напряжение шума, В
+        double c = getNoiseVoltage(); // эффективное напряжение шума, В
         int f = getFrequency();          // тактовая частота генератора шума, кГц 
         
-        float e = uSignal * uSignal / b; // энергия единичного сигнала
-        float deltaF = f /20; // полоса частот, воспроизводимая генератором шума
-        double n = uSignal * uSignal / deltaF;
+        double e = uSignal * uSignal / b; // энергия единичного сигнала
+        final float deltaF = f * 1000 / 20; // полоса частот, воспроизводимая генератором шума
+        double n = c * c / deltaF;
         
-        float probability = (float) erfc( sqrt( 2 * e / n ) );
+        double argument = sqrt( ((2 * e) / n ));
+        double probability = 0.5 * (1 - erf( argument / sqrt(2)));
+        System.out.println("e = "+e );
+        System.out.println("deltaF = "+deltaF );
+        System.out.println("n = "+n );
+        System.out.println("probability = "+ probability );
         setProbability(probability);
     }
     

@@ -33,7 +33,7 @@ public class Controller {
      * @param save - путь к сохраняемому файлу
      * @param probability - вероятность ошибки
      */
-    public void copy (final File open, final File save, final float probability) {
+    public void copy (final File open, final File save, final double probability) {
         SwingWorker<Void, Integer[]> worker = new SwingWorker<Void, Integer[]>() {  // поток обновления progressBar
             @Override
             protected Void doInBackground() throws Exception {
@@ -100,9 +100,8 @@ public class Controller {
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
-                //view.setQuantityLabel(maskCounter);
-                view.setProgress(value[1]);  // обновление прогрессбара
                 view.setQuantityLabel(value[0]); //обновление label с количеством ошибок
+                view.setProgress(value[1]);  // обновление прогрессбара
             }
         };
         worker.execute();
