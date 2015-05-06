@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
@@ -60,7 +61,7 @@ public class Controller {
                         mistakeAndProgress[1] = 0;
                         mistakeAndProgress[0] = 0;
   
-                        while ((c = in.read()) != -1) {  
+                        while ((c = in.read()) != -1) {  // сюда нужно впихнуть mask.
                             mistakeAndProgress[1]++;
                             if ((Math.random()) > probability) {
                                 out.write(c ^ 8);
@@ -107,6 +108,36 @@ public class Controller {
         worker.execute();
     }
     
-    
-    
+    // метод складывает по модулю 2 32 битную маску из случайным образом искаженных битов на 32 битный участок файла. 
+    // входные данные: probaility - вероятность искажения бита; data - 32 битный участок файла.
+    // выходные - 32 участок файла с искажениями
+    public int mask(int probaility, int data){
+        int shiftVariable = 0;
+        int tempMask = 0;
+        
+        Random randomNumberGenerator = new Random();
+        for(int i = 30; i != 0; i--) {
+            
+            if(randomNumberGenerator.nextDouble() > probaility){
+                if( shiftVariable == 0 ){ //если первая итерация
+                    shiftVariable = 1; 
+                    System.out.format("i = %d Накладываем маску %h ",i, tempMask );
+                    tempMask = tempMask | shiftVariable; // побитовое сложение нулевой маски со сдвинутой
+                    System.out.format("на %h . получаем %h\n", shiftVariable,tempMask );
+                } 
+                else {
+                    System.out.format("i = %d Накладываем маску %h ",i, tempMask );
+                    
+                    shiftVariable = shiftVariable << 1;
+                    tempMask = tempMask | shiftVariable;
+                    
+                    System.out.format("на %h . получаем %h\n", shiftVariable,tempMask );
+                }
+            }
+        }
+        System.out.format("\n\n\n финальная маска = %h\n", tempMask );
+        System.out.format("\n\n\n файл = %h\n", data);
+        System.out.format("\n\n\n файлова маска = %h\n", data ^ tempMask);
+        return data ^ tempMask;
+    } 
 }

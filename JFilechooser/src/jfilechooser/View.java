@@ -145,13 +145,15 @@ public class View extends javax.swing.JFrame { //
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
-                        .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MistakeQuantityText)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22))
+                                .addGap(94, 94, 94)
+                                .addComponent(MistakeQuantityText)
+                                .addGap(22, 22, 22))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(OpenButton)
@@ -316,7 +318,6 @@ public class View extends javax.swing.JFrame { //
     
 //    Обработка события по нажатию кнопки Open
     private void OpenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenButtonActionPerformed
-                                                                      
         int o = fc.showOpenDialog(this); /** Открывает окно выбора
          * пути. return APPROVE_OPTION if the user approved the operation and
          * CANCEL_OPTION if the user cancelled it **/
