@@ -23,11 +23,49 @@ import javax.swing.SwingWorker;
 public class Controller {
     
     private final View view;
+    private int blockError = 0; // количество битых блоков
+    private int byteError = 0; // -- байт
+    private int bitError = 0; // -- бит
+    private boolean byteErrorFlag = false; // флаг появления ошибки в байте. Сбрасывается в методе mask().
     
-    public Controller(View viewInstance) {
+    public Controller(View viewInstance) { // конструктор 
         this.view = viewInstance;
     } 
     
+    public void setBlockError(int number) {
+        blockError = blockError + number;
+    }
+    public int getBlockError(){
+        return blockError;
+    }  
+    
+    public void setByteError(int number) {
+        byteError = byteError + number;
+    }
+    public int getByteError(){
+        return byteError;
+    }
+    
+    public void setBitError(int number) {
+        bitError = bitError + number;
+    }
+    public int getBitError(){
+        return bitError;
+    }
+    
+    public void setByteErrorFlag(boolean c) {
+        byteErrorFlag = c;
+    }
+    public boolean getByteErrorFlag(){
+        return byteErrorFlag;
+    }
+    
+    public void setBlockErrorFlag(boolean c) {
+        byteErrorFlag = c;
+    }
+    public boolean getBlockErrorFlag(){
+        return byteErrorFlag;
+    }
     /**
      *  Метод копирует файл с заданной вероятностью
      * @param open - путь к открываемому файлу
@@ -60,23 +98,37 @@ public class Controller {
                         Integer[] mistakeAndProgress = new Integer[2];
                         mistakeAndProgress[1] = 0;
                         mistakeAndProgress[0] = 0;
-  
-                        while ((c = in.read()) != -1) {  // сюда нужно впихнуть mask.
-                            mistakeAndProgress[1]++;
-                            if ((Math.random()) > probability) {
-                                out.write(c ^ 8);
-                                mistakeAndProgress[0]++;
-                            } else {
-                                out.write(c);
-                            }                           
-                            publish (mistakeAndProgress); 
+                        int blockSize = 1572;
+                        //int counter = 0; // счетчик битых байтов
+                        int bytes = 0;  // количество считанных байт
+
+                        for(int z = 0; (c = in.read()) != -1; bytes++, publish(mistakeAndProgress)) {    // считывание файла. (условие завершения цикла - достижение конца файла)
+                            mistakeAndProgress[1]++; // обновление прогрессбара
+                            z++;
+                            int result = mask(0.9, c); // result - 8 бит файла с внесенными ошибками
+                            out.write(result); // запись на диск                         
+                            if( (z == blockSize) ||(view.getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
+                                                       //его на ошибки и обнулить локальный счетчик ошибок (то же при достижении конца файла,
+                                                        // когда последний блок не полный )
+                                if ( getByteErrorFlag() ){
+                                    System.out.println("Ошибка блока!");
+                                    setBlockError( 1 );
+                                    setBlockErrorFlag( false ); // обнулить флаг ошибки в блоке
+                                }
+                                System.out.println("Отсчет блока");
+                                z = 0; // сбросить счетчик байт в блоке
+                            }
                         }
+                        System.out.println("Количество ошибок:");
+                        System.out.println("Бит "+getBitError());
+                        System.out.println("Байт "+getByteError());
+                        System.out.println("Блоки "+getBlockError());
+                        
                     } catch (IOException ex) {
                         System.out.println("Ошибка в наложении маски");
                         Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } finally {
-                    System.out.println("Все прошло успешно");
                     if (in != null) {
                         try {
                             in.close();
@@ -108,36 +160,45 @@ public class Controller {
         worker.execute();
     }
     
-    // метод складывает по модулю 2 32 битную маску из случайным образом искаженных битов на 32 битный участок файла. 
-    // входные данные: probaility - вероятность искажения бита; data - 32 битный участок файла.
-    // выходные - 32 участок файла с искажениями
-    public int mask(int probaility, int data){
-        int shiftVariable = 0;
+    // метод складывает по модулю 2 8 битную маску ошибок в битах с участком файла. 
+    // входные данные: probaility - вероятность искажения бита; data - 8 битный участок файла.
+    // выходные - 8 участок файла с искажениями
+    public int mask(double probability, int data){
+        int shiftVariable = 1;
         int tempMask = 0;
-        
+        int tempBitError = 0; // обнуление счетчика ошибочных бит 
         Random randomNumberGenerator = new Random();
-        for(int i = 30; i != 0; i--) {
-            
-            if(randomNumberGenerator.nextDouble() > probaility){
-                if( shiftVariable == 0 ){ //если первая итерация
-                    shiftVariable = 1; 
-                    System.out.format("i = %d Накладываем маску %h ",i, tempMask );
+        for(int i = 0; i != 8;  shiftVariable = shiftVariable << 1,i++) {
+            System.out.println("Цикл "+i);
+            if(randomNumberGenerator.nextDouble() > probability){
+                if( i == 0 ){ //если первая итерация 
+                    System.out.format("\n i = %d Накладываем маску %h ",i, tempMask );
                     tempMask = tempMask | shiftVariable; // побитовое сложение нулевой маски со сдвинутой
+                    tempBitError++; // изменяем количество битовых ошибок
                     System.out.format("на %h . получаем %h\n", shiftVariable,tempMask );
                 } 
-                else {
+                else { // если цикл не первый
                     System.out.format("i = %d Накладываем маску %h ",i, tempMask );
-                    
-                    shiftVariable = shiftVariable << 1;
+          
                     tempMask = tempMask | shiftVariable;
+                    tempBitError++;
                     
                     System.out.format("на %h . получаем %h\n", shiftVariable,tempMask );
                 }
             }
+            else {
+                System.out.println("Без ошибок ("+i+")");
+            }
+        }
+        setBitError( tempBitError ); // обновление количества искаженных бит
+        if ( tempBitError != 0){ // если были ошибки в бите, то они есть и в байте.
+                setBlockErrorFlag( true ); //есть ошибка в байте. Используется в подсчетче ошибочных блоков.
+                setByteError( 1 ); // обновление количества искаженных байт
         }
         System.out.format("\n\n\n финальная маска = %h\n", tempMask );
         System.out.format("\n\n\n файл = %h\n", data);
         System.out.format("\n\n\n файлова маска = %h\n", data ^ tempMask);
+        System.out.println("-----------------------------------------------");
         return data ^ tempMask;
     } 
 }
