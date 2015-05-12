@@ -48,6 +48,11 @@ public class View extends javax.swing.JFrame { //
         speed = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         frequency = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +122,32 @@ public class View extends javax.swing.JFrame { //
                 frequencyActionPerformed(evt);
             }
         });
+
+        jMenu1.setText("Файл");
+
+        jMenuItem1.setText("Выход");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Помощь");
+
+        jMenuItem2.setText("О программе");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,7 +237,7 @@ public class View extends javax.swing.JFrame { //
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(frequency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -216,9 +247,9 @@ public class View extends javax.swing.JFrame { //
                 .addGap(50, 50, 50))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 197, Short.MAX_VALUE)
+                    .addGap(0, 186, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 198, Short.MAX_VALUE)))
+                    .addGap(0, 186, Short.MAX_VALUE)))
         );
 
         pack();
@@ -368,6 +399,15 @@ public class View extends javax.swing.JFrame { //
         int numberInput = Integer.parseInt( stringInput ); // converts srting to number
         setFrequency( numberInput );
     }//GEN-LAST:event_frequencyActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    // при нажатии меню "О программе" открывает соответствующее окно
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new AboutGUI().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
     
     private void calculate () {
         double uSignal = getUsefulVoltage(); // максимальное напряжение полезного сигнала, В
@@ -403,6 +443,11 @@ public class View extends javax.swing.JFrame { //
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JSpinner noiseVoltage;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JTextField speed;
