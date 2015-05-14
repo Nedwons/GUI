@@ -20,6 +20,7 @@ public class View extends javax.swing.JFrame { //
 
     public View() {
         initComponents();
+        setDefaultValues();
     }
 
     /**
@@ -58,6 +59,8 @@ public class View extends javax.swing.JFrame { //
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
         OpenButton.setText("Open");
         OpenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +94,6 @@ public class View extends javax.swing.JFrame { //
 
         jLabel2.setText("U полезного сигнала, В");
 
-        usefulVoltage.setText("7.35");
         usefulVoltage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usefulVoltageActionPerformed(evt);
@@ -109,7 +111,6 @@ public class View extends javax.swing.JFrame { //
 
         jLabel4.setText("Скорость передачи, Бод");
 
-        speed.setText("50");
         speed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 speedActionPerformed(evt);
@@ -118,7 +119,6 @@ public class View extends javax.swing.JFrame { //
 
         jLabel5.setText("Тактовая частота, кГц:");
 
-        frequency.setText("50");
         frequency.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 frequencyActionPerformed(evt);
@@ -188,7 +188,7 @@ public class View extends javax.swing.JFrame { //
                                         .addComponent(jLabel2)
                                         .addGap(18, 18, 18)
                                         .addComponent(usefulVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(fileSizeText)
@@ -201,9 +201,6 @@ public class View extends javax.swing.JFrame { //
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SaveButton)
-                        .addGap(42, 42, 42))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(fileSizeLabel)
                         .addGap(140, 140, 140)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +209,10 @@ public class View extends javax.swing.JFrame { //
                         .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(284, 284, 284))))
+                        .addGap(284, 284, 284))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(SaveButton)
+                        .addGap(42, 42, 42))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 360, Short.MAX_VALUE)
@@ -234,7 +234,6 @@ public class View extends javax.swing.JFrame { //
                     .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -248,7 +247,7 @@ public class View extends javax.swing.JFrame { //
                             .addComponent(noiseVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(usefulVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                         .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -312,8 +311,8 @@ public class View extends javax.swing.JFrame { //
     public void setFileSize (long size) {
         this.fileSize = size; 
     }
-    public int getFileSize() {
-        return ( (int) fileSize);
+    public long getFileSize() {
+        return fileSize;
     }
     
     // устанавливает количество ошибок
@@ -322,14 +321,14 @@ public class View extends javax.swing.JFrame { //
     }
     
     // Метод возвращает процент считанного файла    
-    public int getPercent(int number) { // number - количество считанных блоков  
-        int tempFileSize = this.getFileSize(); // размер файла
-        int result = (int) (100 * number ) / tempFileSize; // вычисление процента
+    public int getPercent(long number) { // number - количество считанных блоков  
+        long tempFileSize = this.getFileSize(); // размер файла
+        int result = (int) ( number  / (tempFileSize * 0.01)); // вычисление процента
         return result;
     }
     
     // устанавливает значение progressBar
-    public void setProgress(int number) {
+    public void setProgress(long number) {
         this.progressBar.setValue( getPercent( number ) );
     }
     
@@ -414,6 +413,7 @@ public class View extends javax.swing.JFrame { //
     }//GEN-LAST:event_speedActionPerformed
 
     private void frequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frequencyActionPerformed
+        
         String stringInput = frequency.getText(); // забираем значение вероятности
         int numberInput = Integer.parseInt( stringInput ); // converts srting to number
         setFrequency( numberInput );
@@ -447,6 +447,10 @@ public class View extends javax.swing.JFrame { //
         setProbability(probability);
     }
     
+    private void setDefaultValues() { // Присваивает значения по умолчанию или показывает ранее сохраненные настройки.
+        frequency.setText( String.valueOf( getFrequency() ) ); // установка частоты
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel MistakeQuantityLabel;
@@ -476,6 +480,8 @@ public class View extends javax.swing.JFrame { //
     private javax.swing.JButton startButton;
     private javax.swing.JTextField usefulVoltage;
     // End of variables declaration//GEN-END:variables
+
+    
 
 }
 
