@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rosad;
+package logics;
 
 import java.io.IOException; 
+import view.MainGUI;
+import view.View;
 
 /**
  *
@@ -41,7 +43,8 @@ public class ProgrammTest {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new View().setVisible(true);  //launches View
+                //new View().setVisible(true);  //launches View
+                new MainGUI().setVisible(true);
             }
         });
     } 
