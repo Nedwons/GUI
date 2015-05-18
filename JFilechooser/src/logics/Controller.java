@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
-import view.View;
+import view.Config;
 
 /**
  *
@@ -23,13 +23,13 @@ import view.View;
  */
 public class Controller {
     
-    private final View view;
+    private final Config view;
     private int blockError = 0; // количество битых блоков
     private int byteError = 0; // -- байт
     private int bitError = 0; // -- бит
     private boolean byteErrorFlag = false; // флаг появления ошибки в байте. Сбрасывается в методе mask().
     
-    public Controller(View viewInstance) { // конструктор 
+    public Controller(Config viewInstance) { // конструктор 
         this.view = viewInstance;
     } 
     
@@ -85,13 +85,13 @@ public class Controller {
                         in = new FileInputStream(open);
                     } catch (FileNotFoundException ex) {
                         System.out.println("Открываемый файл не найден");
-                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
                         out = new FileOutputStream(save);
                     } catch (FileNotFoundException ex) {
                         System.out.println("Сохраняемый файл не найден");
-                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     int c;
 
@@ -127,21 +127,21 @@ public class Controller {
                         
                     } catch (IOException ex) {
                         System.out.println("Ошибка в наложении маски");
-                        Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } finally {
                     if (in != null) {
                         try {
                             in.close();
                         } catch (IOException ex) {
-                            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     if (out != null) {
                         try {
                             out.close();
                         } catch (IOException ex) {
-                            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }

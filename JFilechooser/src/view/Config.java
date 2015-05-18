@@ -16,9 +16,9 @@ import static org.apache.commons.math3.special.Erf.erf;
  *
  * @author Вадим
  */
-public class View extends javax.swing.JFrame { //
+public class Config extends javax.swing.JFrame { //
 
-    public View() {
+    public Config() {
         initComponents();
         setDefaultValues();
     }
