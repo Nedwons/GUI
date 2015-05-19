@@ -1,4 +1,4 @@
-package view;
+package RosAdProgram.view;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -47,7 +47,7 @@ public class MainGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cистема передачи с РОС-Ад");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/схема.PNG"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RosAdProgram/images/схема.PNG"))); // NOI18N
         jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

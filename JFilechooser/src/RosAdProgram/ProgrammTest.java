@@ -1,13 +1,15 @@
+package RosAdProgram;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logics;
+
 
 import java.io.IOException; 
-import view.MainGUI;
-import view.Config;
+import RosAdProgram.view.MainGUI;
+import RosAdProgram.view.Config;
 
 /**
  *
@@ -45,7 +47,6 @@ public class ProgrammTest {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //new View().setVisible(true);  //launches View
                 new MainGUI().setVisible(true);
             }
         });

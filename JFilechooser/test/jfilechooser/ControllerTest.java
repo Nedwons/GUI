@@ -5,7 +5,7 @@
  */
 package jfilechooser;
 
-import logics.Controller;
+import RosAdProgram.model.Controller;
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;

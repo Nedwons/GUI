@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package RosAdProgram.view;
 
-import logics.Controller;
+import RosAdProgram.model.Controller;
 import java.io.File;
 import static java.lang.Math.sqrt;
 import javax.swing.*;

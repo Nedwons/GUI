@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logics;
+package RosAdProgram.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
-import view.Config;
+import RosAdProgram.view.Config;
 
 /**
  *
@@ -68,7 +68,7 @@ public class Controller {
         return byteErrorFlag;
     }
     /**
-     *  Метод копирует файл с заданной вероятностью
+     *  Метод копирует файл с заданной вероятностью ошибки по битам
      * @param open - путь к открываемому файлу
      * @param save - путь к сохраняемому файлу
      * @param probability - вероятность ошибки
