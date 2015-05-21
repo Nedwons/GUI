@@ -56,6 +56,7 @@ public class MainGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cистема передачи с РОС-Ад");
+        setResizable(false);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/RosAdProgram/images/схема.PNG"))); // NOI18N
         jLabel2.setText("jLabel2");
