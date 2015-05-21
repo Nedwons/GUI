@@ -60,73 +60,68 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="frequency" min="-2" pref="36" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                                          <Component id="noiseVoltage" min="-2" pref="52" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="usefulVoltage" max="32767" attributes="0"/>
-                                      <Component id="speed" pref="50" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="PsButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
-                      </Group>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="PsButton" min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="saveButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="IsButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="IsButton" min="-2" pref="52" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="frequency" min="-2" pref="52" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="noiseVoltage" min="-2" pref="52" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="usefulVoltage" min="-2" pref="68" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="speed" min="-2" pref="79" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="206" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="360" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="298" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="360" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="297" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -142,8 +137,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="frequency" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="frequency" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="speed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -159,8 +154,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="usefulVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="usefulVoltage" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -173,16 +168,15 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="PsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="saveButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="102" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="199" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -212,14 +206,6 @@
         <Property name="text" type="java.lang.String" value="U &#x43f;&#x43e;&#x43b;&#x435;&#x437;&#x43d;&#x43e;&#x433;&#x43e; &#x441;&#x438;&#x433;&#x43d;&#x430;&#x43b;&#x430;, &#x412;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="usefulVoltage">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="7.35"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usefulVoltageActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x42d;&#x444;&#x444;&#x435;&#x43a;&#x442;&#x438;&#x432;&#x43d;&#x43e;&#x435; &#x43d;&#x430;&#x43f;&#x440;&#x44f;&#x436;&#x435;&#x43d;&#x438;&#x435;"/>
@@ -240,26 +226,10 @@
         <Property name="text" type="java.lang.String" value="&#x421;&#x43a;&#x43e;&#x440;&#x43e;&#x441;&#x442;&#x44c; &#x43f;&#x435;&#x440;&#x435;&#x434;&#x430;&#x447;&#x438;, &#x411;&#x43e;&#x434;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="speed">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="50"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="speedActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x422;&#x430;&#x43a;&#x442;&#x43e;&#x432;&#x430;&#x44f; &#x447;&#x430;&#x441;&#x442;&#x43e;&#x442;&#x430;, &#x43a;&#x413;&#x446;:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="frequency">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="50"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="frequencyActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
@@ -292,6 +262,36 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="frequency">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="50" maximum="999" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="frequencyStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="speed">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="50" maximum="100000" minimum="1" numberType="java.lang.Integer" stepSize="50" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="speedStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="usefulVoltage">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="7.35" maximum="72.0" minimum="1.0" numberType="java.lang.Float" stepSize="0.15" type="number"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="usefulVoltageStateChanged"/>
       </Events>
     </Component>
   </SubComponents>

@@ -1,4 +1,5 @@
 package RosAdProgram.view;
+import RosAdProgram.Controller.Controller;
 import RosAdProgram.model.Model;
 
 /*
@@ -13,22 +14,19 @@ import RosAdProgram.model.Model;
  */
 public class MainGUI extends javax.swing.JFrame {
     
-    private final Model model;
-    private final ConfigGUI configGUI;
-    private final StatisticsGUI statisticsGUI;
     /**
      * Creates new form MainGUI
-     * @param model - ссылка на объект класса model (логика приложения)
-     * @param configGUI - ссылка на объект класса configGUI (окно конфигурации)
      */
    
-    public MainGUI(Model model, ConfigGUI configGUI, StatisticsGUI statisticsGUI ) {
+    public MainGUI() {
         initComponents();
-        this.model = model;
-        this.configGUI = configGUI;
-        this.statisticsGUI = statisticsGUI;
     }
-
+    Model model = new Model(); // в объекте model содератся данные о конфигурации стенда, а также описано его поведение
+    StatisticsGUI statistics = new StatisticsGUI(model);
+    StatisticsGUI statisticsGUI = new StatisticsGUI(model);
+    ConfigGUI configGUI = new ConfigGUI(model);
+    Controller controller = new Controller(model, configGUI, statisticsGUI); // в объекте controller хранятся методы обработки действий пользователя
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,7 +168,8 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-       statisticsGUI.setVisible(true);  //запускает окно конфигурации
+        statisticsGUI.setFileSize(); //выставляет размер файла в интерфейсе статистики
+        statisticsGUI.setVisible(true);  //запускает окно статистики
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     

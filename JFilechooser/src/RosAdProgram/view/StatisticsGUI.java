@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package RosAdProgram.view;
-
 import RosAdProgram.model.Model;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 /**
  *
@@ -21,12 +22,12 @@ public class StatisticsGUI extends javax.swing.JFrame {
     public StatisticsGUI(Model model) {
         this.model = model;
         initComponents();
-        setFileSize();
-        model.setControllerReference(this); // при создании объекта StatisicsGUI в Model записывается его ссылка.
+        UIManager.put("nimbusOrange", new Color(29, 72, 242)); //RGB цвет прогресбара 
+        model.setControllerReference( this ); // при создании объекта StatisicsGUI в Model записывается его ссылка.
     }
     
     // метод выставляет значение размера файла
-    private void setFileSize(){
+    public void setFileSize(){
         long size = model.getFileSize(); // забираем из Model значение размера файла
         fileSizeLabel.setText(String.valueOf(size)); // конвертируем значение в строку и отображаем его в интерфейсе
     }
@@ -43,9 +44,9 @@ public class StatisticsGUI extends javax.swing.JFrame {
         fileSizeText = new javax.swing.JLabel();
         fileSizeLabel = new javax.swing.JLabel();
         startButton = new javax.swing.JButton();
-        progressBar = new javax.swing.JProgressBar();
         MistakeQuantityLabel = new javax.swing.JLabel();
         MistakeQuantityText = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
 
         fileSizeText.setText("Размер файла, байт");
 
@@ -58,11 +59,20 @@ public class StatisticsGUI extends javax.swing.JFrame {
             }
         });
 
-        progressBar.setStringPainted(true);
-
         MistakeQuantityLabel.setText("0");
 
         MistakeQuantityText.setText("Количество ошибочных блоков");
+
+        progressBar.setBackground(new java.awt.Color(0, 255, 0));
+        progressBar.setForeground(java.awt.Color.orange);
+        progressBar.setToolTipText("");
+        progressBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        progressBar.setStringPainted(true);
+        progressBar.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                progressBarStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,42 +82,39 @@ public class StatisticsGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(startButton)
                 .addGap(55, 55, 55))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(fileSizeText))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(fileSizeLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MistakeQuantityText, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(fileSizeText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(MistakeQuantityText))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(fileSizeLabel)
+                        .addGap(141, 141, 141)
                         .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)))
-                .addGap(108, 108, 108))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(167, 167, 167))
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(MistakeQuantityText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(60, 60, 60)
+                .addGap(29, 29, 29)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MistakeQuantityText)
+                    .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(startButton)
                 .addGap(45, 45, 45))
         );
@@ -117,14 +124,17 @@ public class StatisticsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        model.copy(model.getOpenPath(), model.getSavePath(), model.getProbability());
+        model.copy();
     }//GEN-LAST:event_startButtonActionPerformed
 
-   // устанавливает значение progressBar
-    public void setProgress(long number) {
-        progressBar.setValue( model.getPercent( number ) );
+    private void progressBarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_progressBarStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_progressBarStateChanged
+
+   // устанавливает значение progressBar 
+    public void setProgress(int number) {
+        this.progressBar.setValue( number );
     }
-    
     // устанавливает количество ошибок
     public void setQuantityLabel(int quantity) {
         MistakeQuantityLabel.setText( String.valueOf(quantity) ); //

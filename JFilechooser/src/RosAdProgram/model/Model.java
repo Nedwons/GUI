@@ -34,10 +34,10 @@ public class Model {
     private boolean byteErrorFlag = false; // флаг появления ошибки в байте. Сбрасывается в методе mask().
     
     private File openPath, savePath; // содержат ссылки на файлы ИС и ПС
-    private double usefulVoltageValue = 7.35; // Напряжение полезного сигнала по умолчанию
-    private int speedValue = 50; // Скорость передачи по умолчанию
+    private double usefulVoltageValue; // Напряжение полезного сигнала по умолчанию
+    private int speedValue; // Скорость передачи по умолчанию
     private float noiseVoltageValue; // эффективное напряжение шума
-    private int frequencyValue = 50; // Частота шумогенератора
+    private int frequencyValue; // Частота шумогенератора
     private double mistakeProbability; // вероятность ошибки
     
     public void setControllerReference(StatisticsGUI statistics) {
@@ -46,7 +46,8 @@ public class Model {
     
     // Getter и Setter размера файла
     public void setFileSize() {
-        fileSize = getOpenPath().length(); //определяем размер файла (вызывается при нажатии кнопки ИС)
+        fileSize = getOpenPath().length(); //определяем размер файла (вызывается при нажатии кнопки ИС)   
+        //"D:/Видео/Проект-Самый лучший выпускной 2014-.(БелГУТ Гомель).mp4"
     }
     public long getFileSize() {
         return fileSize;
@@ -71,10 +72,6 @@ public class Model {
     }
     public double getUsefulVoltage() {
         return usefulVoltageValue; 
-    }
-    public String getUsefulStringVoltage() {
-        String voltage = String.valueOf( usefulVoltageValue );
-        return voltage; 
     }
     
     // Скорость передачи
@@ -106,8 +103,8 @@ public class Model {
     
     // Метод возвращает процент считанного файла    
     public int getPercent(long number) { // number - количество считанных блоков  
-        long tempFileSize = getFileSize(); // размер файла
-        int result = (int) ( number  / (tempFileSize * 0.01)); // вычисление процента
+        //long tempFileSize = размер файла getFileSize(); // 
+        int result = (int) ( number  / (68968448 * 0.01)); // вычисление процента tempFileSize
         return result;
     }
     
@@ -154,13 +151,13 @@ public class Model {
     public int getFrequency() {
         return frequencyValue;
     }
-    /**
-     *  Метод копирует файл с заданной вероятностью ошибки по битам
-     * @param open - путь к открываемому файлу
-     * @param save - путь к сохраняемому файлу
-     * @param probability - вероятность ошибки
-     */
-    public void copy (final File open, final File save, final double probability) {
+    
+    //  Метод копирует файл с заданной вероятностью ошибки по битам
+    public void copy () {
+        final File open = getOpenPath();
+        final File save = getSavePath();
+        final double probability = getProbability();
+        
         SwingWorker<Void, Integer[]> worker = new SwingWorker<Void, Integer[]>() {  // поток обновления progressBar
             @Override
             protected Void doInBackground() throws Exception {
@@ -169,13 +166,13 @@ public class Model {
                 
                 try {
                     try {
-                        in = new FileInputStream(open);
+                        in = new FileInputStream("D:/Видео/Проект-Самый лучший выпускной 2014-.(БелГУТ Гомель).mp4"); //open
                     } catch (FileNotFoundException ex) {
                         System.out.println("Открываемый файл не найден");
                         Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        out = new FileOutputStream(save);
+                        out = new FileOutputStream("D:/123.mp4"); // save
                     } catch (FileNotFoundException ex) {
                         System.out.println("Сохраняемый файл не найден");
                         Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,29 +180,30 @@ public class Model {
                     int c;
 
                     try { // Noise adding 
+                        long progress = 0;
                         Integer[] mistakeAndProgress = new Integer[2];
                         mistakeAndProgress[1] = 0;
                         mistakeAndProgress[0] = 0;
                         int blockSize = 128;  // размер блока в байтах
-                        //int counter = 0; // счетчик битых байтов
                         int bytes = 0;  // количество считанных байт
 
-                        for(int z = 0; (c = in.read()) != -1; bytes++, publish(mistakeAndProgress)) {    // считывание файла. (условие завершения цикла - достижение конца файла)
-                            mistakeAndProgress[1]++; // обновление прогрессбара
+                        for(int z = 0; (c = in.read()) != -1; bytes++) {    // считывание файла. (условие завершения цикла - достижение конца файла)
+                            progress++; // обновление прогрессбара
                             z++;
                             int result = mask(probability, c); // result - 8 бит файла с внесенными ошибками
                             out.write(result); // запись на диск                         
-                            if( (z == blockSize) ||(getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
+                            if( (z == blockSize) || (getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
                                                        //его на ошибки и обнулить локальный счетчик ошибок (то же при достижении конца файла,
                                                         // когда последний блок не полный )
                                 if ( getByteErrorFlag() ){
-                                    //System.out.println("Ошибка блока!");
                                     setBlockError( 1 );
                                     setBlockErrorFlag( false ); // обнулить флаг ошибки в блоке
                                 }
-                                //System.out.println("Отсчет блока");
                                 z = 0; // сбросить счетчик байт в блоке
                             }
+                            mistakeAndProgress[1] = getPercent( progress );
+                            
+                            publish(mistakeAndProgress);
                         }
                         System.out.println("Количество ошибок:");
                         System.out.println("Бит "+getBitError());
@@ -241,14 +239,15 @@ public class Model {
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
-                statistics.setQuantityLabel(value[0]); //обновление label с количеством ошибок
+                statistics.setQuantityLabel(value[1]); //обновление label с количеством ошибок
                 statistics.setProgress(value[1]);  // обновление прогрессбара
+                
             }
         };
         worker.execute();
     }
     
-    // метод складывает по модулю 2 8 битную маску ошибок в битах с участком файла. Т.е. генерирует т.н. поток ошибок
+    // метод суммирует по модулю 2 8 битную маску ошибок в битах с участком файла. Т.е. генерирует т.н. поток ошибок
     // входные данные: probaility - вероятность искажения бита; data - 8 битный участок файла.
     // выходные - 8 участок файла с искажениями
     // также метод ведет подсчет ошибок по битам и байтам, выставляет флаг для подсчета ошибок по блокам.

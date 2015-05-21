@@ -1,11 +1,8 @@
 package RosAdProgram;
 
-import RosAdProgram.model.Model;
 import java.io.IOException; 
 import RosAdProgram.view.MainGUI;
 import RosAdProgram.view.ConfigGUI;
-import RosAdProgram.Controller.Controller;
-import RosAdProgram.view.StatisticsGUI;
 
 /**
  *
@@ -39,20 +36,9 @@ public class ProgrammTest {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                runApp();
+                new MainGUI().setVisible(true); // главное окно (со структурной схемой);
             }
-
-            private void runApp() {
-                 Model model = new Model(); // в объекте model содератся данные о конфигурации стенда, а также описано его поведение
-                 StatisticsGUI statisticsGUI = new StatisticsGUI(model);
-                 ConfigGUI configGUI = new ConfigGUI(model);
-                 MainGUI mainGui = new MainGUI(model,configGUI, statisticsGUI); // главно окно (со структурной схемой)
-                 
-                 Controller controller = new Controller(model, mainGui, configGUI, statisticsGUI); // в объекте controller хранятся методы обработки действий пользователя
-                 StatisticsGUI statistics = new StatisticsGUI(model);
-                 mainGui.setVisible(true);  
-                 
-            }
+            
         });
     } 
 }
