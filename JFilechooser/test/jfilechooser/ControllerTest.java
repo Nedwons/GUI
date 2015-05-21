@@ -5,7 +5,7 @@
  */
 package jfilechooser;
 
-import RosAdProgram.model.Controller;
+import RosAdProgram.model.Model;
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -48,7 +48,7 @@ public class ControllerTest {
         File open = null;
         File save = null;
         float probability = 0.0F;
-        Controller instance = null;
+        Model instance = null;
         instance.copy(open, save, probability);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

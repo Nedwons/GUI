@@ -15,24 +15,104 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
-import RosAdProgram.view.Config;
+import RosAdProgram.view.ConfigGUI;
+import RosAdProgram.view.StatisticsGUI;
+import static java.lang.Math.sqrt;
+import static org.apache.commons.math3.special.Erf.erf;
 
 /**
  *
  * @author Вадим
  */
-public class Controller {
+public class Model {
+    private StatisticsGUI statistics;
     
-    private final Config view;
+    private long fileSize; // Размер файла
     private int blockError = 0; // количество битых блоков
     private int byteError = 0; // -- байт
     private int bitError = 0; // -- бит
     private boolean byteErrorFlag = false; // флаг появления ошибки в байте. Сбрасывается в методе mask().
     
-    public Controller(Config viewInstance) { // конструктор 
-        this.view = viewInstance;
-    } 
+    private File openPath, savePath; // содержат ссылки на файлы ИС и ПС
+    private double usefulVoltageValue = 7.35; // Напряжение полезного сигнала по умолчанию
+    private int speedValue = 50; // Скорость передачи по умолчанию
+    private float noiseVoltageValue; // эффективное напряжение шума
+    private int frequencyValue = 50; // Частота шумогенератора
+    private double mistakeProbability; // вероятность ошибки
     
+    public void setControllerReference(StatisticsGUI statistics) {
+        this.statistics = statistics; // связывает ConfigGUI с Model
+    }
+    
+    // Getter и Setter размера файла
+    public void setFileSize() {
+        fileSize = getOpenPath().length(); //определяем размер файла (вызывается при нажатии кнопки ИС)
+    }
+    public long getFileSize() {
+        return fileSize;
+    }
+    
+    public void setOpenPath (File openPath) {  
+        this.openPath = openPath;
+    }
+    public void setSavePath (File savePath) {
+        this.savePath = savePath;
+    }
+    public File getOpenPath () {  
+        return this.openPath;
+    }
+    public File getSavePath () {  
+        return this.savePath;
+    }
+    
+    // устанавливает значение напряжения полезного сигнала
+    public void setUsefulVoltge(float numberInput) {
+        usefulVoltageValue = numberInput; 
+    }
+    public double getUsefulVoltage() {
+        return usefulVoltageValue; 
+    }
+    public String getUsefulStringVoltage() {
+        String voltage = String.valueOf( usefulVoltageValue );
+        return voltage; 
+    }
+    
+    // Скорость передачи
+    public void setSpeed(int value) {
+        speedValue = value;
+    }
+    public int getSpeed() {
+        return speedValue;
+    }
+    public String getStringSpeed() {
+        String speed = String.valueOf( speedValue );
+        return speed;
+    }
+    
+    // эффективное напряжение шума
+    public void setNoiseVoltage(float value) {
+        noiseVoltageValue = value;
+    }
+    public double getNoiseVoltage() {
+        return noiseVoltageValue;
+    }
+    // Getter и Setter добавления ошибок
+    public void setProbability (double prbability) {
+        mistakeProbability = (1 - prbability); 
+    }
+    public double getProbability() {
+        return mistakeProbability;
+    }
+    
+    // Метод возвращает процент считанного файла    
+    public int getPercent(long number) { // number - количество считанных блоков  
+        long tempFileSize = getFileSize(); // размер файла
+        int result = (int) ( number  / (tempFileSize * 0.01)); // вычисление процента
+        return result;
+    }
+    
+    
+    // ниже представлены методы для подсчета ошибок в битах байтах и блоках
     public void setBlockError(int number) {
         blockError = blockError + number;
     }
@@ -67,6 +147,13 @@ public class Controller {
     public boolean getBlockErrorFlag(){
         return byteErrorFlag;
     }
+    
+    public void setFrequency(int numberInput) {
+        frequencyValue = numberInput;
+    }
+    public int getFrequency() {
+        return frequencyValue;
+    }
     /**
      *  Метод копирует файл с заданной вероятностью ошибки по битам
      * @param open - путь к открываемому файлу
@@ -85,13 +172,13 @@ public class Controller {
                         in = new FileInputStream(open);
                     } catch (FileNotFoundException ex) {
                         System.out.println("Открываемый файл не найден");
-                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
                         out = new FileOutputStream(save);
                     } catch (FileNotFoundException ex) {
                         System.out.println("Сохраняемый файл не найден");
-                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     int c;
 
@@ -108,7 +195,7 @@ public class Controller {
                             z++;
                             int result = mask(probability, c); // result - 8 бит файла с внесенными ошибками
                             out.write(result); // запись на диск                         
-                            if( (z == blockSize) ||(view.getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
+                            if( (z == blockSize) ||(getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
                                                        //его на ошибки и обнулить локальный счетчик ошибок (то же при достижении конца файла,
                                                         // когда последний блок не полный )
                                 if ( getByteErrorFlag() ){
@@ -127,21 +214,21 @@ public class Controller {
                         
                     } catch (IOException ex) {
                         System.out.println("Ошибка в наложении маски");
-                        Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } finally {
                     if (in != null) {
                         try {
                             in.close();
                         } catch (IOException ex) {
-                            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     if (out != null) {
                         try {
                             out.close();
                         } catch (IOException ex) {
-                            Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
@@ -154,8 +241,8 @@ public class Controller {
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
-                view.setQuantityLabel(value[0]); //обновление label с количеством ошибок
-                view.setProgress(value[1]);  // обновление прогрессбара
+                statistics.setQuantityLabel(value[0]); //обновление label с количеством ошибок
+                statistics.setProgress(value[1]);  // обновление прогрессбара
             }
         };
         worker.execute();
@@ -202,5 +289,24 @@ public class Controller {
 //        System.out.format("\n\n\n файлова маска = %h\n", data ^ tempMask);
 //        System.out.println("-----------------------------------------------");
         return data ^ tempMask;
-    } 
+    }
+    
+    public void calculate() {
+        double uSignal = getUsefulVoltage(); // максимальное напряжение полезного сигнала, В
+        int b = getSpeed();                // скорость передачи, Бод
+        double c = getNoiseVoltage(); // эффективное напряжение шума, В
+        int f = getFrequency();          // тактовая частота генератора шума, кГц 
+        
+        double e = uSignal * uSignal / b; // энергия единичного сигнала
+        final float deltaF = f * 1000 / 20; // полоса частот, воспроизводимая генератором шума
+        double n = c * c / deltaF;
+        
+        double argument = sqrt( ((2 * e) / n ));
+        double probability = 0.5 * (1 - erf( argument / sqrt(2)));
+        System.out.println("e = "+e );
+        System.out.println("deltaF = "+deltaF );
+        System.out.println("n = "+n );
+        System.out.println("probability = "+ probability );
+        setProbability(probability);
+    }
 }

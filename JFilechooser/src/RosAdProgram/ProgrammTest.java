@@ -1,15 +1,11 @@
 package RosAdProgram;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
+import RosAdProgram.model.Model;
 import java.io.IOException; 
 import RosAdProgram.view.MainGUI;
-import RosAdProgram.view.Config;
+import RosAdProgram.view.ConfigGUI;
+import RosAdProgram.Controller.Controller;
+import RosAdProgram.view.StatisticsGUI;
 
 /**
  *
@@ -30,24 +26,32 @@ public class ProgrammTest {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Config.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Config.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Config.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Config.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConfigGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainGUI().setVisible(true);
+                runApp();
+            }
+
+            private void runApp() {
+                 Model model = new Model(); // в объекте model содератся данные о конфигурации стенда, а также описано его поведение
+                 StatisticsGUI statisticsGUI = new StatisticsGUI(model);
+                 ConfigGUI configGUI = new ConfigGUI(model);
+                 MainGUI mainGui = new MainGUI(model,configGUI, statisticsGUI); // главно окно (со структурной схемой)
+                 
+                 Controller controller = new Controller(model, mainGui, configGUI, statisticsGUI); // в объекте controller хранятся методы обработки действий пользователя
+                 StatisticsGUI statistics = new StatisticsGUI(model);
+                 mainGui.setVisible(true);  
+                 
             }
         });
     } 
