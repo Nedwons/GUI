@@ -22,8 +22,8 @@ public class MainGUI extends javax.swing.JFrame {
         initComponents();
     }
     Model model = new Model(); // в объекте model содератся данные о конфигурации стенда, а также описано его поведение
-    StatisticsGUI statistics = new StatisticsGUI(model);
     StatisticsGUI statisticsGUI = new StatisticsGUI(model);
+    RosAdGUI rosAdGUI = new RosAdGUI(model);
     ConfigGUI configGUI = new ConfigGUI(model);
     Controller controller = new Controller(model, configGUI, statisticsGUI); // в объекте controller хранятся методы обработки действий пользователя
     
@@ -38,6 +38,8 @@ public class MainGUI extends javax.swing.JFrame {
 
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -46,6 +48,7 @@ public class MainGUI extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        statisticsMenu = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -53,6 +56,10 @@ public class MainGUI extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         jMenuItem4.setText("jMenuItem4");
+
+        jMenuItem7.setText("jMenuItem7");
+
+        jMenuItem8.setText("jMenuItem8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cистема передачи с РОС-Ад");
@@ -97,6 +104,7 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem5.setText("Параметры");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +117,17 @@ public class MainGUI extends javax.swing.JFrame {
 
         jMenu4.setText("Отчет");
 
-        jMenuItem6.setText("Статистика");
+        statisticsMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        statisticsMenu.setText("Статистика");
+        statisticsMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statisticsMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(statisticsMenu);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem6.setText("РОС-Ад");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -168,9 +186,13 @@ public class MainGUI extends javax.swing.JFrame {
         configGUI.setVisible(true);  //запускает окно конфигурации
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void statisticsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statisticsMenuActionPerformed
+        statisticsGUI.setVisible(true);
+    }//GEN-LAST:event_statisticsMenuActionPerformed
+
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        statisticsGUI.setFileSize(); //выставляет размер файла в интерфейсе статистики
-        statisticsGUI.setVisible(true);  //запускает окно статистики
+        rosAdGUI.setFileSize(); //выставляет размер файла в интерфейсе статистики
+        rosAdGUI.setVisible(true);  //запускает окно статистики
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     
@@ -187,6 +209,10 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem statisticsMenu;
     // End of variables declaration//GEN-END:variables
+
 }

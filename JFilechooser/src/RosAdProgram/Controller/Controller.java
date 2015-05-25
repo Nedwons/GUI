@@ -7,6 +7,7 @@ package RosAdProgram.Controller;
 
 import RosAdProgram.model.Model;
 import RosAdProgram.view.ConfigGUI;
+import RosAdProgram.view.RosAdGUI;
 import RosAdProgram.view.StatisticsGUI;
 import javax.swing.JFileChooser;
 
@@ -25,29 +26,29 @@ public class Controller {
         this.configGUI = configGUI;
         this.statisticsGUI = statisticsGUI;
         configGUI.setControllerReference(this); // передает ссылку на объект класса Controller объекту класса ConfigGUI 
+        statisticsGUI.setControllerReference(this);
     }
     
     // обработка нажатия кнопки выбора источника сигнала ИС
     public void IsButtonPressed() {
-//        JFileChooser fc = new JFileChooser(); // переменная выбора файла
-//        int o = fc.showOpenDialog(configGUI); // Открывает окно выбора пути. 
-//        
-//        if (o == JFileChooser.APPROVE_OPTION) { // Если пользователь подтвердил выбор кнопкой ОК
-//            model.setOpenPath( fc.getSelectedFile() ); // Метод сохраняет путь к выбранному файлу в переменной openPath класса Model            
-//            
-//            model.setFileSize(); // запускаем метод вычисления значения размера файла в переменной объекта класса Model
-//        }    
-//        System.out.println("open = "+ fc.getSelectedFile());
+        JFileChooser fc = new JFileChooser(); // переменная выбора файла
+        int o = fc.showOpenDialog(configGUI); // Открывает окно выбора пути. 
+        
+        if (o == JFileChooser.APPROVE_OPTION) { // Если пользователь подтвердил выбор кнопкой ОК
+            model.setOpenPath( fc.getSelectedFile() ); // Метод сохраняет путь к выбранному файлу в переменной openPath класса Model            
+            model.setFileSize(); // запускаем метод вычисления значения размера файла в переменной объекта класса Model
+        }    
+        System.out.println("open = "+ fc.getSelectedFile());
         model.setFileSize();
     }
     
     public void PsButtonPressed() {
-//        JFileChooser fc = new JFileChooser(); // переменная выбора файла
-//        int s = fc.showSaveDialog(configGUI);
-//         if (s == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
-//            model.setSavePath( fc.getSelectedFile() ); // 
-//        } 
-//        System.out.println("save = "+ fc.getSelectedFile());
+        JFileChooser fc = new JFileChooser(); // переменная выбора файла
+        int s = fc.showSaveDialog(configGUI);
+         if (s == JFileChooser.APPROVE_OPTION) { // if "ok" is pressed
+            model.setSavePath( fc.getSelectedFile() ); // 
+        } 
+        System.out.println("save = "+ fc.getSelectedFile());
     }
     
     public void usefulVoltageChanged(float value){
@@ -65,6 +66,20 @@ public class Controller {
     
     public void frequencyChanged(int value) {
         model.setFrequency( value );
+    }
+
+    public void blockSizeChanged(String selectedItem) {
+        int value = Integer.parseInt( selectedItem );
+        model.setBlockSize(value);
+    }
+
+    public void applyButtonPressed() {
+        model.calculate(); // вычисление вероятности ошибки
+        statisticsGUI.setValueTopTable(); //обновление таблицы с введенными параметрами (окно Статистика)
+    }
+
+    public void computeButtonPressed() {
+        model.fillErrorRatioArray(); // вычисляем коэффициенты ошибок
     }
     
 }

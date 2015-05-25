@@ -16,7 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import RosAdProgram.view.ConfigGUI;
+import RosAdProgram.view.RosAdGUI;
 import RosAdProgram.view.StatisticsGUI;
+import static java.lang.Math.ceil;
 import static java.lang.Math.sqrt;
 import static org.apache.commons.math3.special.Erf.erf;
 
@@ -25,29 +27,41 @@ import static org.apache.commons.math3.special.Erf.erf;
  * @author Вадим
  */
 public class Model {
-    private StatisticsGUI statistics;
+    private RosAdGUI rosAdGUI;
+    private StatisticsGUI statisticsGUI;
     
+    private final double[] errorRatioArray = new double[3]; // массив коэффициентов ошибок 
     private long fileSize; // Размер файла
     private int blockError = 0; // количество битых блоков
     private int byteError = 0; // -- байт
     private int bitError = 0; // -- бит
     private boolean byteErrorFlag = false; // флаг появления ошибки в байте. Сбрасывается в методе mask().
+    private int blockSize = 8; // размер блока (в байтах)
     
     private File openPath, savePath; // содержат ссылки на файлы ИС и ПС
-    private double usefulVoltageValue; // Напряжение полезного сигнала по умолчанию
-    private int speedValue; // Скорость передачи по умолчанию
-    private float noiseVoltageValue; // эффективное напряжение шума
-    private int frequencyValue; // Частота шумогенератора
-    private double mistakeProbability; // вероятность ошибки
+    private double usefulVoltageValue  = 7.35; // Напряжение полезного сигнала по умолчанию
+    private int speedValue = 50; // Скорость передачи по умолчанию
+    private double noiseVoltageValue = 0.6; // эффективное напряжение шума
+    private int frequencyValue =50; // Частота шумогенератора
+    private double mistakeProbability = 0; // вероятность ошибки
     
-    public void setControllerReference(StatisticsGUI statistics) {
-        this.statistics = statistics; // связывает ConfigGUI с Model
+    public void setRosAdGUIreference(RosAdGUI rosAdGUI) {
+        this.rosAdGUI = rosAdGUI; // связывает ConfigGUI с Model
+    }
+    public void setStatisticsGUIreference(StatisticsGUI statistics) {
+        this.statisticsGUI = statistics; // связывает StatisticsGUI с Model
+    }
+    
+    public int getBlockSize(){
+        return blockSize;
+    }
+    public void setBlockSize(int size){
+       this.blockSize = size;
     }
     
     // Getter и Setter размера файла
     public void setFileSize() {
         fileSize = getOpenPath().length(); //определяем размер файла (вызывается при нажатии кнопки ИС)   
-        //"D:/Видео/Проект-Самый лучший выпускной 2014-.(БелГУТ Гомель).mp4"
     }
     public long getFileSize() {
         return fileSize;
@@ -59,10 +73,10 @@ public class Model {
     public void setSavePath (File savePath) {
         this.savePath = savePath;
     }
-    public File getOpenPath () {  
+    public File getOpenPath() {  
         return this.openPath;
     }
-    public File getSavePath () {  
+    public File getSavePath() {  
         return this.savePath;
     }
     
@@ -103,8 +117,8 @@ public class Model {
     
     // Метод возвращает процент считанного файла    
     public int getPercent(long number) { // number - количество считанных блоков  
-        //long tempFileSize = размер файла getFileSize(); // 
-        int result = (int) ( number  / (68968448 * 0.01)); // вычисление процента tempFileSize
+        long tempFileSize = getFileSize(); 
+        int result = (int) ( number  / (tempFileSize * 0.01)); // вычисление процента tempFileSize
         return result;
     }
     
@@ -151,9 +165,32 @@ public class Model {
     public int getFrequency() {
         return frequencyValue;
     }
+    public long getFileSizeInBits(){ // возвращает размре файла в битах
+        return getFileSize() * 8;
+    }
+    public double getFileSizeInBlocks(){ // то же в блоках
+        long tempFileSize = getFileSize(); // размер  файла в байтах
+        int tempBlockSize = getBlockSize(); // размер блока в байтах 
+        double blocks = ceil( tempFileSize / tempBlockSize); // деление с округлением в большую сторону
+        return blocks;
+    }
+    
+    public double ratioCalc(double error, double total){ // вычисляет коэффициент ошибки
+        double ratio = error / total;
+        return ratio;
+    }
+    
+    public void fillErrorRatioArray() { // заполняет массив коэффициентов ошибок
+        errorRatioArray[0] = ratioCalc( getBitError(), getFileSizeInBits()); // по битам
+        errorRatioArray[1] = ratioCalc( getByteError(), getFileSize() ); // по битам
+        errorRatioArray[2] = ratioCalc( getBlockError(), getFileSizeInBlocks()); // по битам
+    }
+    public double[] getErrorRatioArray() {
+        return errorRatioArray;
+    }
     
     //  Метод копирует файл с заданной вероятностью ошибки по битам
-    public void copy () {
+    public void copy(){
         final File open = getOpenPath();
         final File save = getSavePath();
         final double probability = getProbability();
@@ -166,13 +203,13 @@ public class Model {
                 
                 try {
                     try {
-                        in = new FileInputStream("D:/Видео/Проект-Самый лучший выпускной 2014-.(БелГУТ Гомель).mp4"); //open
+                        in = new FileInputStream(open); 
                     } catch (FileNotFoundException ex) {
                         System.out.println("Открываемый файл не найден");
                         Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     try {
-                        out = new FileOutputStream("D:/123.mp4"); // save
+                        out = new FileOutputStream(save); 
                     } catch (FileNotFoundException ex) {
                         System.out.println("Сохраняемый файл не найден");
                         Logger.getLogger(ConfigGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,30 +217,42 @@ public class Model {
                     int c;
 
                     try { // Noise adding 
-                        long progress = 0;
-                        Integer[] mistakeAndProgress = new Integer[2];
-                        mistakeAndProgress[1] = 0;
-                        mistakeAndProgress[0] = 0;
-                        int blockSize = 128;  // размер блока в байтах
+                        //int progress = 0;
+                        Integer[] data = new Integer[6];
+                        data[0] = 0; // количество считанных байт
+                        data[1] = 0; // количество ошибочных бит
+                        data[2] = 0; // количество ошибочных байт
+                        data[3] = 0; // количество ошибочных блоков
+                        data[4] = 0; // количество считанных блоков
+                        data[5] = 0; // количество считанных байт
+                        
+                        int currentBlockCount = 0; // текущее количество считанных блоков
+                        int blockSize = getBlockSize();  // размер блока в байтах
                         int bytes = 0;  // количество считанных байт
 
-                        for(int z = 0; (c = in.read()) != -1; bytes++) {    // считывание файла. (условие завершения цикла - достижение конца файла)
-                            progress++; // обновление прогрессбара
-                            z++;
+                        for(int bytesInBlockCounter = 0; (c = in.read()) != -1; ) {    // считывание файла. (условие завершения цикла - достижение конца файла)
+                            bytes++; // количество считанных байт
+                            bytesInBlockCounter++; 
                             int result = mask(probability, c); // result - 8 бит файла с внесенными ошибками
                             out.write(result); // запись на диск                         
-                            if( (z == blockSize) || (getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
+                            if( (bytesInBlockCounter == blockSize) || (getFileSize() == bytes - 1) ) { // при прочтении блока из заданного числа байт проверить
                                                        //его на ошибки и обнулить локальный счетчик ошибок (то же при достижении конца файла,
                                                         // когда последний блок не полный )
                                 if ( getByteErrorFlag() ){
                                     setBlockError( 1 );
                                     setBlockErrorFlag( false ); // обнулить флаг ошибки в блоке
                                 }
-                                z = 0; // сбросить счетчик байт в блоке
+                                currentBlockCount++; // инкремент количества блоков
+                                bytesInBlockCounter = 0; // сбросить счетчик байт в блоке
                             }
-                            mistakeAndProgress[1] = getPercent( progress );
+                            data[0] = getPercent( bytes ); 
+                            data[1] = getBitError();
+                            data[2] = getByteError();
+                            data[3] = getBlockError();
+                            data[4] = bytes;
+                            data[5] = currentBlockCount;
                             
-                            publish(mistakeAndProgress);
+                            publish(data);
                         }
                         System.out.println("Количество ошибок:");
                         System.out.println("Бит "+getBitError());
@@ -239,8 +288,10 @@ public class Model {
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
-                statistics.setQuantityLabel(value[1]); //обновление label с количеством ошибок
-                statistics.setProgress(value[1]);  // обновление прогрессбара
+                rosAdGUI.setQuantityLabel(value[1]); //обновление label с количеством ошибок
+                rosAdGUI.setProgress(value[0]);  // обновление прогрессбара
+                statisticsGUI.setValueButtomTable(value[1], value[2], value[3], value[4], value[5] ); // обновление количества ошибок в окне статистики
+                
                 
             }
         };

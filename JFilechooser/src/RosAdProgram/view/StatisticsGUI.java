@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package RosAdProgram.view;
+
+import RosAdProgram.Controller.Controller;
 import RosAdProgram.model.Model;
-import java.awt.Color;
-import javax.swing.UIManager;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,20 +20,36 @@ public class StatisticsGUI extends javax.swing.JFrame {
      * Creates new form StatisticsGUI
      */
     private final Model model;
+    private Controller controller;
     
     public StatisticsGUI(Model model) {
-        this.model = model;
         initComponents();
-        UIManager.put("nimbusOrange", new Color(29, 72, 242)); //RGB цвет прогресбара 
-        model.setControllerReference( this ); // при создании объекта StatisicsGUI в Model записывается его ссылка.
+        this.model = model;
+        model.setStatisticsGUIreference( this ); // при создании объекта StatisicsGUI в Model записывается его ссылка.
+    }
+
+    public void setValueButtomTable(int bitError, int byteError, int blockError, int currentByte, int currentBlock){
+        DefaultTableModel tableModel = (DefaultTableModel) buttomTable.getModel();
+        tableModel.setValueAt( bitError, 0, 2 );
+        tableModel.setValueAt( byteError, 1, 2 );
+        tableModel.setValueAt( blockError, 2, 2 );
+        tableModel.setValueAt(( currentByte * 8), 0, 1 );
+        tableModel.setValueAt( currentByte, 1, 1 );
+        tableModel.setValueAt( currentBlock, 2, 1 );
+//        tableModel.setValueAt(undetectedBit, 2, 1);
+//        tableModel.setValueAt(undetectedByte, 2, 2);
+//        tableModel.setValueAt(undetectedBlock, 2, 3);   
     }
     
-    // метод выставляет значение размера файла
-    public void setFileSize(){
-        long size = model.getFileSize(); // забираем из Model значение размера файла
-        fileSizeLabel.setText(String.valueOf(size)); // конвертируем значение в строку и отображаем его в интерфейсе
+    // верхняя таблица. Обновляется по нажатию кнопки "Сохранить" окна Конфигурация
+    public void setValueTopTable(){
+        DefaultTableModel tableModel = (DefaultTableModel) topTable.getModel();
+        tableModel.setValueAt(model.getBlockSize(), 3, 1);
+        tableModel.setValueAt(model.getSpeed(), 4, 1);
+        tableModel.setValueAt(model.getOpenPath(), 0, 1);
+        tableModel.setValueAt(model.getSavePath(), 1, 1);
+        tableModel.setValueAt(model.getFileSize(), 2, 1);
     }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,36 +59,82 @@ public class StatisticsGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fileSizeText = new javax.swing.JLabel();
-        fileSizeLabel = new javax.swing.JLabel();
-        startButton = new javax.swing.JButton();
-        MistakeQuantityLabel = new javax.swing.JLabel();
-        MistakeQuantityText = new javax.swing.JLabel();
-        progressBar = new javax.swing.JProgressBar();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        topTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        buttomTable = new javax.swing.JTable();
+        compute = new javax.swing.JButton();
 
-        fileSizeText.setText("Размер файла, байт");
+        topTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Источник", null},
+                {"Приемник", null},
+                {"Размер файла, Байт", null},
+                {"Размер блока, Байт", null},
+                {"Скорость, Бод", null}
+            },
+            new String [] {
+                "", ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
 
-        fileSizeLabel.setText("(байт)");
-
-        startButton.setText("Связь");
-        startButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startButtonActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
+        topTable.setToolTipText("");
+        topTable.setShowHorizontalLines(true);
+        topTable.setShowVerticalLines(true);
+        jScrollPane1.setViewportView(topTable);
+        if (topTable.getColumnModel().getColumnCount() > 0) {
+            topTable.getColumnModel().getColumn(0).setPreferredWidth(5);
+        }
+        topTable.getAccessibleContext().setAccessibleName("");
 
-        MistakeQuantityLabel.setText("0");
+        buttomTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttomTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Биты", null, null, null},
+                {"Байты", null, null, null},
+                {"Блоки", null, null, null}
+            },
+            new String [] {
+                "", "Всего", "Ошибки", "Коэффициент ошибок"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
 
-        MistakeQuantityText.setText("Количество ошибочных блоков");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        progressBar.setBackground(new java.awt.Color(0, 255, 0));
-        progressBar.setForeground(java.awt.Color.orange);
-        progressBar.setToolTipText("");
-        progressBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        progressBar.setStringPainted(true);
-        progressBar.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                progressBarStateChanged(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        buttomTable.setToolTipText("");
+        buttomTable.setShowHorizontalLines(true);
+        buttomTable.setShowVerticalLines(true);
+        jScrollPane2.setViewportView(buttomTable);
+        if (buttomTable.getColumnModel().getColumnCount() > 0) {
+            buttomTable.getColumnModel().getColumn(0).setResizable(false);
+            buttomTable.getColumnModel().getColumn(1).setResizable(false);
+            buttomTable.getColumnModel().getColumn(2).setResizable(false);
+            buttomTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        compute.setText("Рассчет");
+        compute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                computeActionPerformed(evt);
             }
         });
 
@@ -78,75 +142,51 @@ public class StatisticsGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(startButton)
-                .addGap(55, 55, 55))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(fileSizeText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(MistakeQuantityText))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(fileSizeLabel)
-                        .addGap(141, 141, 141)
-                        .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(167, 167, 167))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(compute)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MistakeQuantityText)
-                    .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                .addComponent(startButton)
-                .addGap(45, 45, 45))
+                .addComponent(compute)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        model.copy();
-    }//GEN-LAST:event_startButtonActionPerformed
+    private void computeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_computeActionPerformed
+        controller.computeButtonPressed();
+        buttomTable.getModel().setValueAt( model.getErrorRatioArray()[0], 0, 3); // вывод в таблицу коэффициента ошибок по битам
+        buttomTable.getModel().setValueAt( model.getErrorRatioArray()[1], 1, 3); // вывод в таблицу коэффициента ошибок по байтам
+        buttomTable.getModel().setValueAt( model.getErrorRatioArray()[2], 2, 3); // вывод в таблицу коэффициента ошибок по блокам
+    }//GEN-LAST:event_computeActionPerformed
 
-    private void progressBarStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_progressBarStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_progressBarStateChanged
+    public void setControllerReference(Controller controller){
+        this.controller = controller;
+        model.getErrorRatioArray();
+    }
 
-   // устанавливает значение progressBar 
-    public void setProgress(int number) {
-        this.progressBar.setValue( number );
-    }
-    // устанавливает количество ошибок
-    public void setQuantityLabel(int quantity) {
-        MistakeQuantityLabel.setText( String.valueOf(quantity) ); //
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel MistakeQuantityLabel;
-    private javax.swing.JLabel MistakeQuantityText;
-    private javax.swing.JLabel fileSizeLabel;
-    private javax.swing.JLabel fileSizeText;
-    private javax.swing.JProgressBar progressBar;
-    private javax.swing.JButton startButton;
+    private javax.swing.JTable buttomTable;
+    private javax.swing.JButton compute;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable topTable;
     // End of variables declaration//GEN-END:variables
-
 }
