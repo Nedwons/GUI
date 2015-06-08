@@ -61,6 +61,9 @@ public class ConfigGUI extends javax.swing.JFrame { //
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
+        setTitle("Параметры моделирования");
+        setResizable(false);
+
         IsButton.setText("ИС");
         IsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +82,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
 
         jLabel3.setText("Эффективное напряжение");
 
-        noiseVoltage.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.6f), Float.valueOf(0.0f), Float.valueOf(6.0f), Float.valueOf(0.1f)));
+        noiseVoltage.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(0.6f), Float.valueOf(0.0f), Float.valueOf(4.0f), Float.valueOf(0.1f)));
         noiseVoltage.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 noiseVoltageStateChanged(evt);
@@ -107,7 +110,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
             }
         });
 
-        frequency.setModel(new javax.swing.SpinnerNumberModel(50, 1, 999, 1));
+        frequency.setModel(new javax.swing.SpinnerNumberModel(50, 1, 1000, 1));
         frequency.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 frequencyStateChanged(evt);
@@ -121,7 +124,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
             }
         });
 
-        usefulVoltage.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(7.35f), Float.valueOf(1.0f), Float.valueOf(72.0f), Float.valueOf(0.15f)));
+        usefulVoltage.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(7.35f), Float.valueOf(1.0f), Float.valueOf(8.0f), Float.valueOf(0.15f)));
         usefulVoltage.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 usefulVoltageStateChanged(evt);
@@ -168,7 +171,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -190,40 +193,38 @@ public class ConfigGUI extends javax.swing.JFrame { //
                                 .addComponent(noiseVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3)
                             .addComponent(jLabel6))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addGap(65, 65, 65))
+                        .addGap(120, 120, 120)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(saveButton)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(saveButton)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel11))
-                                        .addGap(34, 34, 34)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(usefulVoltage, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(blockSizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(43, 43, 43))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel11))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(speed, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(usefulVoltage, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(blockSizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9))))
+                .addGap(43, 43, 43))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 311, Short.MAX_VALUE)
+                    .addGap(0, 324, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 301, Short.MAX_VALUE)))
+                    .addGap(0, 315, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
@@ -248,7 +249,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
                     .addComponent(jLabel10)
                     .addComponent(PsButton)
                     .addComponent(saveButton))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 136, Short.MAX_VALUE)
@@ -335,8 +336,5 @@ public class ConfigGUI extends javax.swing.JFrame { //
     private javax.swing.JSpinner speed;
     private javax.swing.JSpinner usefulVoltage;
     // End of variables declaration//GEN-END:variables
-
-    
-
 }
 

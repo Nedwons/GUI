@@ -27,11 +27,6 @@ public class RosAdGUI extends javax.swing.JFrame {
         model.setRosAdGUIreference( this ); // при создании объекта RosADGUI в Model записывается его ссылка.
     }
     
-    // метод выставляет значение размера файла
-    public void setFileSize(){
-        long size = model.getFileSize(); // забираем из Model значение размера файла
-        fileSizeLabel.setText(String.valueOf(size)); // конвертируем значение в строку и отображаем его в интерфейсе
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,10 +39,7 @@ public class RosAdGUI extends javax.swing.JFrame {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        fileSizeText = new javax.swing.JLabel();
-        fileSizeLabel = new javax.swing.JLabel();
         startButton = new javax.swing.JButton();
-        MistakeQuantityLabel = new javax.swing.JLabel();
         MistakeQuantityText = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -70,18 +62,12 @@ public class RosAdGUI extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable1);
 
-        fileSizeText.setText("Размер файла, байт");
-
-        fileSizeLabel.setText("(байт)");
-
         startButton.setText("Связь");
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
             }
         });
-
-        MistakeQuantityLabel.setText("0");
 
         MistakeQuantityText.setText("Количество ошибочных блоков");
 
@@ -202,16 +188,8 @@ public class RosAdGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fileSizeText)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(fileSizeLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MistakeQuantityText)
-                    .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(MistakeQuantityText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(startButton)
                 .addGap(109, 109, 109))
@@ -234,21 +212,11 @@ public class RosAdGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(fileSizeText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fileSizeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(MistakeQuantityText)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MistakeQuantityLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
+                    .addComponent(startButton)
+                    .addComponent(MistakeQuantityText))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,10 +239,7 @@ public class RosAdGUI extends javax.swing.JFrame {
     public void setProgress(int number) {
         this.progressBar.setValue( number );
     }
-    // устанавливает количество ошибок
-    public void setQuantityLabel(int quantity) {
-        MistakeQuantityLabel.setText( String.valueOf(quantity) ); //
-    }
+  
     
 //    public void setValueBigTable(){
 //        DefaultTableModel tableModel = (DefaultTableModel) bigTable.getModel();
@@ -293,13 +258,10 @@ public class RosAdGUI extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel MistakeQuantityLabel;
     private javax.swing.JLabel MistakeQuantityText;
     private javax.swing.JTable bigTable;
     private javax.swing.JTable blockRecivedTable;
     private javax.swing.JTable blockTransmitTable;
-    private javax.swing.JLabel fileSizeLabel;
-    private javax.swing.JLabel fileSizeText;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -308,5 +270,4 @@ public class RosAdGUI extends javax.swing.JFrame {
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
-
 }

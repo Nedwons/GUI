@@ -123,13 +123,13 @@
                   <Data value="&#x411;&#x43b;&#x43e;&#x43a;&#x438;"/>
                 </Column>
                 <Column editable="false" title="&#x412;&#x441;&#x435;&#x433;&#x43e;" type="java.lang.Integer"/>
-                <Column editable="true" title="&#x41e;&#x448;&#x438;&#x431;&#x43a;&#x438;" type="java.lang.Integer"/>
-                <Column editable="false" title="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x43a;" type="java.lang.Float"/>
+                <Column editable="false" title="&#x41e;&#x448;&#x438;&#x431;&#x43a;&#x438;" type="java.lang.Integer"/>
+                <Column editable="false" title="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x43a;" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
+              <TableColumnModel selectionModel="3">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
@@ -145,13 +145,14 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="400" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="showHorizontalLines" type="boolean" value="true"/>
             <Property name="showVerticalLines" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">

@@ -191,7 +191,6 @@ public class MainGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_statisticsMenuActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        rosAdGUI.setFileSize(); //выставляет размер файла в интерфейсе статистики
         rosAdGUI.setVisible(true);  //запускает окно статистики
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
@@ -214,5 +213,4 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem statisticsMenu;
     // End of variables declaration//GEN-END:variables
-
 }

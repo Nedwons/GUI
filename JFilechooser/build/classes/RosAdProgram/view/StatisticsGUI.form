@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-  </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
@@ -43,136 +20,39 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="248" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="248" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="progressBar" min="-2" pref="429" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="147" max="32767" attributes="0"/>
-                  </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="fileSizeText" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                              <Component id="fileSizeLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="545" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="compute" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="545" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="MistakeQuantityText" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="MistakeQuantityLabel" min="-2" pref="50" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="startButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-              <Component id="jScrollPane4" min="-2" pref="603" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="95" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="77" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="progressBar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="fileSizeText" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="startButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fileSizeLabel" min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="MistakeQuantityText" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="MistakeQuantityLabel" min="-2" pref="16" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" min="-2" pref="80" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="80" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane4" min="-2" pref="78" max="-2" attributes="0"/>
-              <EmptySpace pref="145" max="32767" attributes="0"/>
+              <Component id="compute" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="fileSizeText">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x43c;&#x435;&#x440; &#x444;&#x430;&#x439;&#x43b;&#x430;, &#x431;&#x430;&#x439;&#x442;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="fileSizeLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="(&#x431;&#x430;&#x439;&#x442;)"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="startButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x421;&#x432;&#x44f;&#x437;&#x44c;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startButtonActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="MistakeQuantityLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="0"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="MistakeQuantityText">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;&#x438;&#x447;&#x435;&#x441;&#x442;&#x432;&#x43e; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x447;&#x43d;&#x44b;&#x445; &#x431;&#x43b;&#x43e;&#x43a;&#x43e;&#x432;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="progressBar">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="ff" red="0" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="c8" id="orange" palette="1" red="ff" type="palette"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
-        </Property>
-        <Property name="stringPainted" type="boolean" value="true"/>
-      </Properties>
-      <Events>
-        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="progressBarStateChanged"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -180,36 +60,44 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="blockTransmitTable">
+        <Component class="javax.swing.JTable" name="topTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="3">
+              <Table columnCount="2" rowCount="5">
                 <Column editable="true" title="" type="java.lang.String">
-                  <Data value="&#x41f;&#x440;&#x430;&#x432;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x445;"/>
-                  <Data value="&#x41e;&#x448;&#x438;&#x431;&#x43e;&#x447;&#x43d;&#x44b;&#x445;"/>
-                  <Data value="null"/>
+                  <Data value="&#x418;&#x441;&#x442;&#x43e;&#x447;&#x43d;&#x438;&#x43a;"/>
+                  <Data value="&#x41f;&#x440;&#x438;&#x435;&#x43c;&#x43d;&#x438;&#x43a;"/>
+                  <Data value="&#x420;&#x430;&#x437;&#x43c;&#x435;&#x440; &#x444;&#x430;&#x439;&#x43b;&#x430;, &#x411;&#x430;&#x439;&#x442;"/>
+                  <Data value="&#x420;&#x430;&#x437;&#x43c;&#x435;&#x440; &#x431;&#x43b;&#x43e;&#x43a;&#x430;, &#x411;&#x430;&#x439;&#x442;"/>
+                  <Data value="&#x421;&#x43a;&#x43e;&#x440;&#x43e;&#x441;&#x442;&#x44c;, &#x411;&#x43e;&#x434;"/>
                 </Column>
-                <Column editable="false" title="&#x41f;&#x435;&#x440;&#x435;&#x434;&#x430;&#x43d;&#x43e; &#x431;&#x43b;&#x43e;&#x43a;&#x43e;&#x432;" type="java.lang.Integer"/>
+                <Column editable="true" title="" type="java.lang.String"/>
               </Table>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="5" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="showHorizontalLines" type="boolean" value="true"/>
+            <Property name="showVerticalLines" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+          </AccessibilityProperties>
         </Component>
       </SubComponents>
     </Container>
@@ -220,85 +108,53 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="blockRecivedTable">
+        <Component class="javax.swing.JTable" name="buttomTable">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="3">
-                <Column editable="true" title="" type="java.lang.String">
-                  <Data value="&#x41f;&#x440;&#x430;&#x432;&#x438;&#x43b;&#x44c;&#x43d;&#x44b;&#x445;"/>
-                  <Data value="&#x41e;&#x448;&#x438;&#x431;&#x43e;&#x447;&#x43d;&#x44b;&#x445;"/>
-                  <Data value="null"/>
-                </Column>
-                <Column editable="false" title="&#x41f;&#x440;&#x438;&#x43d;&#x44f;&#x442;&#x43e; &#x431;&#x43b;&#x43e;&#x43a;&#x43e;&#x432;" type="java.lang.Integer"/>
-              </Table>
-            </Property>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-              </TableColumnModel>
-            </Property>
-            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="bigTable">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="4" rowCount="3">
                 <Column editable="false" title="" type="java.lang.String">
-                  <Data value="&#x412;&#x441;&#x435;&#x433;&#x43e;"/>
-                  <Data value="&#x41e;&#x431;&#x43d;&#x430;&#x440;&#x443;&#x436;&#x435;&#x43d;&#x43e; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x43a;"/>
-                  <Data value="&#x41d;&#x435;&#x43e;&#x431;&#x43d;&#x430;&#x440;&#x443;&#x436;&#x435;&#x43d;&#x43e; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x43a;"/>
-                  <Data value="null"/>
+                  <Data value="&#x411;&#x438;&#x442;&#x44b;"/>
+                  <Data value="&#x411;&#x430;&#x439;&#x442;&#x44b;"/>
+                  <Data value="&#x411;&#x43b;&#x43e;&#x43a;&#x438;"/>
                 </Column>
-                <Column editable="false" title="&#x411;&#x438;&#x442;&#x44b;" type="java.lang.Integer"/>
-                <Column editable="false" title="&#x411;&#x430;&#x439;&#x442;&#x44b;" type="java.lang.Integer"/>
-                <Column editable="false" title="&#x411;&#x43b;&#x43e;&#x43a;&#x438;" type="java.lang.Integer"/>
+                <Column editable="false" title="&#x412;&#x441;&#x435;&#x433;&#x43e;" type="java.lang.Integer"/>
+                <Column editable="false" title="&#x41e;&#x448;&#x438;&#x431;&#x43a;&#x438;" type="java.lang.Integer"/>
+                <Column editable="false" title="&#x41a;&#x43e;&#x44d;&#x444;&#x444;&#x438;&#x446;&#x438;&#x435;&#x43d;&#x442; &#x43e;&#x448;&#x438;&#x431;&#x43e;&#x43a;" type="java.lang.String"/>
               </Table>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
+              <TableColumnModel selectionModel="3">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title value=""/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title value="&#x411;&#x438;&#x442;&#x44b;"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title value="&#x411;&#x430;&#x439;&#x442;&#x44b;"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
-                  <Title value="&#x411;&#x43b;&#x43e;&#x43a;&#x438;"/>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="400" resizable="false">
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
+            <Property name="showHorizontalLines" type="boolean" value="true"/>
+            <Property name="showVerticalLines" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -306,5 +162,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="compute">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x441;&#x447;&#x435;&#x442;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="computeActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

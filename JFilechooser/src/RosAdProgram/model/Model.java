@@ -180,10 +180,19 @@ public class Model {
         return ratio;
     }
     
+    public void resetErrors(){ // обнуляет количество ошибок перед началом сеанса связи
+        bitError = 0;
+        byteError = 0;
+        blockError = 0;
+    }
+    
     public void fillErrorRatioArray() { // заполняет массив коэффициентов ошибок
         errorRatioArray[0] = ratioCalc( getBitError(), getFileSizeInBits()); // по битам
+        System.out.println("По битам " + errorRatioArray[0]);
         errorRatioArray[1] = ratioCalc( getByteError(), getFileSize() ); // по битам
+        System.out.println("По байтам " + errorRatioArray[1]);
         errorRatioArray[2] = ratioCalc( getBlockError(), getFileSizeInBlocks()); // по битам
+        System.out.println("По блокам " + errorRatioArray[2]);
     }
     public double[] getErrorRatioArray() {
         return errorRatioArray;
@@ -194,6 +203,8 @@ public class Model {
         final File open = getOpenPath();
         final File save = getSavePath();
         final double probability = getProbability();
+        resetErrors(); 
+        
         
         SwingWorker<Void, Integer[]> worker = new SwingWorker<Void, Integer[]>() {  // поток обновления progressBar
             @Override
@@ -217,7 +228,6 @@ public class Model {
                     int c;
 
                     try { // Noise adding 
-                        //int progress = 0;
                         Integer[] data = new Integer[6];
                         data[0] = 0; // количество считанных байт
                         data[1] = 0; // количество ошибочных бит
@@ -225,7 +235,7 @@ public class Model {
                         data[3] = 0; // количество ошибочных блоков
                         data[4] = 0; // количество считанных блоков
                         data[5] = 0; // количество считанных байт
-                        
+                             
                         int currentBlockCount = 0; // текущее количество считанных блоков
                         int blockSize = getBlockSize();  // размер блока в байтах
                         int bytes = 0;  // количество считанных байт
@@ -245,7 +255,7 @@ public class Model {
                                 currentBlockCount++; // инкремент количества блоков
                                 bytesInBlockCounter = 0; // сбросить счетчик байт в блоке
                             }
-                            data[0] = getPercent( bytes ); 
+                            data[0] = getPercent( bytes + 1 ); 
                             data[1] = getBitError();
                             data[2] = getByteError();
                             data[3] = getBlockError();
@@ -288,7 +298,6 @@ public class Model {
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
                 Integer[] value = chunks.get(chunks.size() - 1); //магия
-                rosAdGUI.setQuantityLabel(value[1]); //обновление label с количеством ошибок
                 rosAdGUI.setProgress(value[0]);  // обновление прогрессбара
                 statisticsGUI.setValueButtomTable(value[1], value[2], value[3], value[4], value[5] ); // обновление количества ошибок в окне статистики
                 

@@ -36,9 +36,6 @@ public class StatisticsGUI extends javax.swing.JFrame {
         tableModel.setValueAt(( currentByte * 8), 0, 1 );
         tableModel.setValueAt( currentByte, 1, 1 );
         tableModel.setValueAt( currentBlock, 2, 1 );
-//        tableModel.setValueAt(undetectedBit, 2, 1);
-//        tableModel.setValueAt(undetectedByte, 2, 2);
-//        tableModel.setValueAt(undetectedBlock, 2, 3);   
     }
     
     // верхняя таблица. Обновляется по нажатию кнопки "Сохранить" окна Конфигурация
@@ -106,10 +103,10 @@ public class StatisticsGUI extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -121,14 +118,17 @@ public class StatisticsGUI extends javax.swing.JFrame {
             }
         });
         buttomTable.setToolTipText("");
+        buttomTable.setColumnSelectionAllowed(true);
         buttomTable.setShowHorizontalLines(true);
         buttomTable.setShowVerticalLines(true);
         jScrollPane2.setViewportView(buttomTable);
+        buttomTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         if (buttomTable.getColumnModel().getColumnCount() > 0) {
             buttomTable.getColumnModel().getColumn(0).setResizable(false);
             buttomTable.getColumnModel().getColumn(1).setResizable(false);
             buttomTable.getColumnModel().getColumn(2).setResizable(false);
             buttomTable.getColumnModel().getColumn(3).setResizable(false);
+            buttomTable.getColumnModel().getColumn(3).setPreferredWidth(400);
         }
 
         compute.setText("Рассчет");
