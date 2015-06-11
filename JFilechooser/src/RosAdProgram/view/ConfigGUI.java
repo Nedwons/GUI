@@ -36,6 +36,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
     private void initComponents() {
 
         fc = new javax.swing.JFileChooser();
+        startButton = new javax.swing.JButton();
         IsButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         PsButton = new javax.swing.JButton();
@@ -60,6 +61,13 @@ public class ConfigGUI extends javax.swing.JFrame { //
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+
+        startButton.setText("Связь");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
 
         setTitle("Параметры моделирования");
         setResizable(false);
@@ -111,13 +119,14 @@ public class ConfigGUI extends javax.swing.JFrame { //
         });
 
         frequency.setModel(new javax.swing.SpinnerNumberModel(50, 1, 1000, 1));
+        frequency.setToolTipText("");
         frequency.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 frequencyStateChanged(evt);
             }
         });
 
-        speed.setModel(new javax.swing.SpinnerNumberModel(50, 1, 100000, 50));
+        speed.setModel(new javax.swing.SpinnerNumberModel(50, 50, 115200, 50));
         speed.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 speedStateChanged(evt);
@@ -249,12 +258,12 @@ public class ConfigGUI extends javax.swing.JFrame { //
                     .addComponent(jLabel10)
                     .addComponent(PsButton)
                     .addComponent(saveButton))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 136, Short.MAX_VALUE)
+                    .addGap(0, 133, Short.MAX_VALUE)
                     .addComponent(jLabel1)
-                    .addGap(0, 136, Short.MAX_VALUE)))
+                    .addGap(0, 133, Short.MAX_VALUE)))
         );
 
         pack();
@@ -309,6 +318,10 @@ public class ConfigGUI extends javax.swing.JFrame { //
         controller.blockSizeChanged( (String) blockSizeCombo.getSelectedItem() );
     }//GEN-LAST:event_blockSizeComboActionPerformed
 
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        model.copy();
+    }//GEN-LAST:event_startButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton IsButton;
     private javax.swing.JButton PsButton;
@@ -334,6 +347,7 @@ public class ConfigGUI extends javax.swing.JFrame { //
     private javax.swing.JSpinner noiseVoltage;
     private javax.swing.JButton saveButton;
     private javax.swing.JSpinner speed;
+    private javax.swing.JButton startButton;
     private javax.swing.JSpinner usefulVoltage;
     // End of variables declaration//GEN-END:variables
 }

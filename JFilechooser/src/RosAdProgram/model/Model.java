@@ -297,8 +297,8 @@ public class Model {
             // Can safely update the GUI here.
             protected void process(List<Integer[]> chunks) { // динамический принимает выдаваемые методом 
                                                                // publish значения
-                Integer[] value = chunks.get(chunks.size() - 1); //магия
-                rosAdGUI.setProgress(value[0]);  // обновление прогрессбара
+                Integer[] value = chunks.get(chunks.size() - 1); // магия
+                statisticsGUI.setProgress(value[0]);  // обновление прогрессбара
                 statisticsGUI.setValueButtomTable(value[1], value[2], value[3], value[4], value[5] ); // обновление количества ошибок в окне статистики
                 
                 

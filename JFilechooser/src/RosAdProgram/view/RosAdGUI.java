@@ -235,10 +235,7 @@ public class RosAdGUI extends javax.swing.JFrame {
         model.copy();
     }//GEN-LAST:event_startButtonActionPerformed
 
-   // устанавливает значение progressBar 
-    public void setProgress(int number) {
-        this.progressBar.setValue( number );
-    }
+   
   
     
 //    public void setValueBigTable(){
